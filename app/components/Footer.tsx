@@ -23,7 +23,7 @@ const Footer = () => {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-r-md transition duration-300"
               >
-                S'abonner
+                S&apos;abonner
               </button>
             </form>
           </div>
