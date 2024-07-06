@@ -1,0 +1,310 @@
+[
+    {
+      "slug": "delicieux-petit-dejeuner-equilibre",
+      "title": "Délicieux petit déjeuner équilibré",
+      "image": "/breakfast1.jpg",
+      "excerpt": "Commencez votre journée avec cette recette saine...",
+      "date": "2024-03-21",
+      "category": "Petit déjeuner",
+      "content": "Commencez votre journée avec ce délicieux petit déjeuner équilibré. Cette recette contient une combinaison parfaite de nutriments pour vous donner l'énergie dont vous avez besoin pour bien démarrer la journée.",
+      "recipe": {
+        "ingredients": [
+          "2 œufs",
+          "100g de flocons d'avoine",
+          "1 banane mûre",
+          "1 cuillère à soupe de miel",
+          "1/2 tasse de lait d'amande"
+        ],
+        "instructions": [
+          "Mélangez les œufs, les flocons d'avoine, la banane écrasée, le miel et le lait d'amande dans un bol.",
+          "Faites chauffer une poêle à feu moyen et versez le mélange.",
+          "Cuire jusqu'à ce que le dessous soit doré, puis retournez et cuire l'autre côté jusqu'à ce qu'il soit bien cuit.",
+          "Servez chaud avec des fruits frais ou du yaourt."
+        ]
+      }
+    },
+    {
+      "slug": "smoothie-aux-fruits",
+      "title": "Smoothie aux fruits",
+      "image": "/breakfast2.jpg",
+      "excerpt": "Un smoothie rafraîchissant pour bien commencer la journée...",
+      "date": "2024-04-10",
+      "category": "Petit déjeuner",
+      "content": "Préparez-vous un smoothie aux fruits rafraîchissant pour bien commencer la journée. Ce smoothie est plein de vitamines et de saveurs naturelles pour vous donner un coup de fouet dès le matin.",
+      "recipe": {
+        "ingredients": [
+          "1 tasse de fraises",
+          "1 banane",
+          "1/2 tasse de lait d'amande",
+          "1 cuillère à soupe de miel"
+        ],
+        "instructions": [
+          "Mettez tous les ingrédients dans un mixeur.",
+          "Mélangez jusqu'à obtention d'une consistance lisse.",
+          "Servez immédiatement dans un verre frais."
+        ]
+      }
+    },
+    {
+      "slug": "omelette-aux-legumes",
+      "title": "Omelette aux légumes",
+      "image": "/breakfast3.jpg",
+      "excerpt": "Une omelette savoureuse et rapide à préparer...",
+      "date": "2024-05-05",
+      "category": "Petit déjeuner",
+      "content": "Découvrez une recette rapide et savoureuse d'omelette aux légumes. Parfaite pour un petit déjeuner équilibré, cette omelette est remplie de légumes frais et de protéines.",
+      "recipe": {
+        "ingredients": [
+          "2 œufs",
+          "1 tomate",
+          "1/2 poivron rouge",
+          "1/2 oignon",
+          "Sel et poivre au goût"
+        ],
+        "instructions": [
+          "Coupez les légumes en petits morceaux.",
+          "Battez les œufs dans un bol et ajoutez les légumes coupés, le sel et le poivre.",
+          "Faites chauffer une poêle avec un peu d'huile, versez le mélange et faites cuire jusqu'à ce que les bords soient dorés.",
+          "Pliez l'omelette en deux et servez chaud."
+        ]
+      }
+    },
+    {
+      "slug": "gateaux-au-chocolat",
+      "title": "Gâteaux au chocolat",
+      "image": "/dessert1.jpg",
+      "excerpt": "Découvrez notre recette de gâteaux au chocolat...",
+      "date": "2024-06-15",
+      "category": "Dessert",
+      "content": "Savourez notre recette de gâteaux au chocolat délicieusement moelleux et chocolatés. Parfaits pour les amateurs de chocolat, ces gâteaux sont parfaits pour toute occasion spéciale ou simplement pour se faire plaisir.",
+      "recipe": {
+        "ingredients": [
+          "200g de chocolat noir",
+          "150g de beurre",
+          "150g de sucre",
+          "4 œufs",
+          "100g de farine"
+        ],
+        "instructions": [
+          "Faites fondre le chocolat et le beurre au bain-marie.",
+          "Ajoutez le sucre et mélangez bien.",
+          "Incorporez les œufs un à un, puis ajoutez la farine.",
+          "Versez la pâte dans des moules à gâteaux beurrés et farinés.",
+          "Faites cuire au four préchauffé à 180°C pendant environ 20 minutes.",
+          "Laissez refroidir avant de démouler et de servir."
+        ]
+      }
+    },
+    {
+      "slug": "tarte-aux-pommes",
+      "title": "Tarte aux pommes",
+      "image": "/dessert2.jpg",
+      "excerpt": "Une tarte aux pommes classique et délicieuse...",
+      "date": "2024-05-20",
+      "category": "Dessert",
+      "content": "Dégustez notre recette de tarte aux pommes classique et délicieuse. Avec une croûte dorée et une garniture de pommes fondantes, cette tarte est un dessert parfait pour toute la famille.",
+      "recipe": {
+        "ingredients": [
+          "Pâte brisée",
+          "4 pommes",
+          "100g de sucre",
+          "1 cuillère à café de cannelle",
+          "1 cuillère à soupe de jus de citron"
+        ],
+        "instructions": [
+          "Préchauffez votre four à 180°C.",
+          "Étalez la pâte brisée dans un moule à tarte et piquez le fond avec une fourchette.",
+          "Pelez et coupez les pommes en tranches fines.",
+          "Dans un bol, mélangez le sucre, la cannelle et le jus de citron. Ajoutez les pommes et mélangez bien.",
+          "Disposez les tranches de pommes sur la pâte brisée.",
+          "Faites cuire au four pendant environ 30 minutes, jusqu'à ce que la croûte soit dorée et les pommes tendres.",
+          "Laissez refroidir avant de démouler et de servir."
+        ]
+      }
+    },
+    {
+      "slug": "creme-brulee",
+      "title": "Crème brûlée",
+      "image": "/dessert3.jpg",
+      "excerpt": "Un dessert élégant et savoureux...",
+      "date": "2024-04-25",
+      "category": "Dessert",
+      "content": "Essayez notre recette de crème brûlée élégante et savoureuse. Avec sa texture crémeuse et sa croûte caramélisée, ce dessert est parfait pour les occasions spéciales.",
+      "recipe": {
+        "ingredients": [
+          "500ml de crème",
+          "6 jaunes d'œufs",
+          "100g de sucre",
+          "1 gousse de vanille"
+        ],
+        "instructions": [
+          "Préchauffez votre four à 160°C.",
+          "Fendez la gousse de vanille en deux et grattez les graines.",
+          "Dans une casserole, faites chauffer la crème avec les graines de vanille et la gousse.",
+          "Dans un bol, fouettez les jaunes d'œufs avec le sucre jusqu'à ce que le mélange blanchisse.",
+          "Versez la crème chaude sur le mélange œufs-sucre en remuant doucement.",
+          "Versez la préparation dans des ramequins et placez-les dans un plat à gratin rempli d'eau chaude.",
+          "Faites cuire au bain-marie pendant environ 40 minutes, jusqu'à ce que la crème soit prise.",
+          "Laissez refroidir, puis réfrigérez pendant au moins 2 heures.",
+          "Avant de servir, saupoudrez de sucre et caramélisez avec un chalumeau de cuisine ou sous le grill du four."
+        ]
+      }
+    },
+    {
+      "slug": "poulet-roti",
+      "title": "Poulet rôti",
+      "image": "/main1.jpg",
+      "excerpt": "Recette de poulet rôti avec des herbes...",
+      "date": "2024-01-10",
+      "category": "Plats principaux",
+      "content": "Préparez un délicieux poulet rôti avec des herbes fraîches pour un repas savoureux et réconfortant. Cette recette simple met en valeur la saveur naturelle du poulet avec une touche d'aromates.",
+      "recipe": {
+        "ingredients": [
+          "1 poulet entier",
+          "2 cuillères à soupe d'huile d'olive",
+          "1 citron",
+          "2 gousses d'ail",
+          "Herbes fraîches (thym, romarin, persil)"
+        ],
+        "instructions": [
+          "Préchauffez votre four à 180°C.",
+          "Frottez le poulet avec de l'huile d'olive, du sel et du poivre.",
+          "Insérez le citron coupé en deux et les gousses d'ail à l'intérieur du poulet.",
+          "Placez le poulet dans un plat allant au four et ajoutez les herbes fraîches sur le dessus.",
+          "Faites cuire au four pendant environ 1 heure, jusqu'à ce que le poulet soit doré et cuit à point.",
+          "Laissez reposer quelques minutes avant de découper et de servir."
+        ]
+      }
+    },
+    {
+      "slug": "lasagnes-vegetariennes",
+      "title": "Lasagnes végétariennes",
+      "image": "/main2.jpg",
+      "excerpt": "Des lasagnes délicieuses et sans viande...",
+      "date": "2024-02-15",
+      "category": "Plats principaux",
+      "content": "Savourez des lasagnes végétariennes délicieuses et réconfortantes. Cette recette est parfaite pour les amateurs de cuisine italienne sans viande, avec des couches de pâtes, de légumes et de sauce tomate.",
+      "recipe": {
+        "ingredients": [
+          "Feuilles de lasagnes",
+          "Courgettes",
+          "Aubergines",
+          "Poivrons",
+          "Sauce tomate",
+          "Fromage râpé"
+        ],
+        "instructions": [
+          "Préchauffez votre four à 180°C.",
+          "Coupez les légumes en tranches fines et faites-les griller légèrement à la poêle.",
+          "Dans un plat allant au four, étalez une couche de sauce tomate, puis une couche de feuilles de lasagnes, une couche de légumes grillés et saupoudrez de fromage râpé.",
+          "Répétez les couches jusqu'à ce que tous les ingrédients soient utilisés, en terminant par une couche de sauce tomate et de fromage râpé.",
+          "Couvrez de papier d'aluminium et faites cuire au four pendant environ 30 minutes.",
+          "Retirez le papier d'aluminium et poursuivez la cuisson pendant 10 minutes supplémentaires, jusqu'à ce que le fromage soit doré et fondu.",
+          "Laissez reposer quelques minutes avant de découper et de servir."
+        ]
+      }
+    },
+    {
+      "slug": "boeuf-bourguignon",
+      "title": "Bœuf bourguignon",
+      "image": "/main3.jpg",
+      "excerpt": "Un plat traditionnel français à base de bœuf...",
+      "date": "2024-03-20",
+      "category": "Plats principaux",
+      "content": "Goûtez à un plat traditionnel français avec notre recette de bœuf bourguignon. Cette spécialité culinaire est préparée avec du bœuf mijoté dans du vin rouge, des légumes et des épices pour une saveur riche et délicieuse.",
+      "recipe": {
+        "ingredients": [
+          "800g de bœuf à braiser",
+          "200ml de vin rouge",
+          "2 carottes",
+          "1 oignon",
+          "Bouquet garni (thym, laurier)",
+          "Sel et poivre au goût"
+        ],
+        "instructions": [
+          "Coupez la viande en cubes et faites-la revenir dans une cocotte avec un peu d'huile.",
+          "Ajoutez l'oignon émincé, les carottes coupées en rondelles et le bouquet garni.",
+          "Versez le vin rouge et laissez mijoter à feu doux pendant environ 2 heures, jusqu'à ce que la viande soit tendre.",
+          "Rectifiez l'assaisonnement avec du sel et du poivre si nécessaire.",
+          "Servez chaud avec des pommes de terre sautées ou des pâtes fraîches."
+        ]
+      }
+    },
+    {
+      "slug": "salade-cesar",
+      "title": "Salade César",
+      "image": "/starter1.jpg",
+      "excerpt": "Recette de la célèbre salade César...",
+      "date": "2024-01-05",
+      "category": "Entrée",
+      "content": "Préparez une salade César classique avec notre recette facile à suivre. Cette salade est composée de laitue croquante, de croûtons, de parmesan râpé et d'une vinaigrette crémeuse pour une salade légère et savoureuse.",
+      "recipe": {
+        "ingredients": [
+          "Laitue romaine",
+          "Croûtons",
+          "Parmesan râpé",
+          "Poulet grillé",
+          "Vinaigrette (huile d'olive, jus de citron, moutarde, ail)"
+        ],
+        "instructions": [
+          "Lavez et séchez la laitue romaine, puis déchirez-la en morceaux.",
+          "Ajoutez les croûtons, le parmesan râpé et le poulet grillé coupé en morceaux.",
+          "Préparez la vinaigrette en mélangeant de l'huile d'olive, du jus de citron, de la moutarde et de l'ail émincé.",
+          "Arrosez la salade de vinaigrette juste avant de servir."
+        ]
+      }
+    },
+    {
+      "slug": "soupe-a-l-oignon",
+      "title": "Soupe à l'oignon",
+      "image": "/starter2.jpg",
+      "excerpt": "Une soupe réconfortante à base d'oignons caramélisés...",
+      "date": "2024-02-10",
+      "category": "Entrée",
+      "content": "Dégustez une soupe à l'oignon réconfortante avec notre recette facile à préparer. Cette soupe est faite avec des oignons caramélisés, du bouillon de légumes et des herbes pour une saveur douce et délicieuse.",
+      "recipe": {
+        "ingredients": [
+          "4 gros oignons jaunes",
+          "1 litre de bouillon de légumes",
+          "50g de beurre",
+          "Tranches de pain",
+          "Fromage râpé"
+        ],
+        "instructions": [
+          "Épluchez et émincez les oignons.",
+          "Faites fondre le beurre dans une grande casserole à feu moyen-doux.",
+          "Ajoutez les oignons émincés et faites-les cuire lentement jusqu'à ce qu'ils soient dorés et caramélisés.",
+          "Versez le bouillon de légumes et laissez mijoter pendant environ 30 minutes.",
+          "Pendant ce temps, faites griller les tranches de pain et saupoudrez-les de fromage râpé.",
+          "Versez la soupe dans des bols individuels et placez une tranche de pain grillé avec du fromage râpé sur le dessus.",
+          "Servez chaud et savourez!"
+        ]
+      }
+    },
+    {
+      "slug": "bruschetta",
+      "title": "Bruschetta",
+      "image": "/starter3.jpg",
+      "excerpt": "Des tartines italiennes savoureuses et faciles à préparer...",
+      "date": "2024-03-15",
+      "category": "Entrée",
+      "content": "Essayez notre recette de bruschetta italienne traditionnelle. Ces tartines sont garnies de tomates fraîches, de basilic, d'ail et d'huile d'olive pour une entrée savoureuse et légère.",
+      "recipe": {
+        "ingredients": [
+          "Pain ciabatta",
+          "Tomates mûres",
+          "Ail",
+          "Basilic frais",
+          "Huile d'olive extra vierge"
+        ],
+        "instructions": [
+          "Tranchez le pain ciabatta et faites-le griller légèrement.",
+          "Frottez les tranches de pain avec de l'ail pelé.",
+          "Coupez les tomates en petits dés et mélangez-les avec du basilic ciselé et de l'huile d'olive.",
+          "Répartissez le mélange de tomates sur les tranches de pain grillé.",
+          "Servez immédiatement pour profiter de la fraîcheur des ingrédients."
+        ]
+      }
+    }
+  ]
+  

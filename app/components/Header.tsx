@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import HeroSection from "./HeroSection";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -9,31 +10,36 @@ const Header = () => {
         <div className="relative z-10">
           <div className="flex items-center justify-between h-16">
             {/* Logo à gauche */}
+            <Link
+                  href="/"
+                  
+                >
             <div className="flex-shrink-0 relative">
               <Image height={200} width={100} alt="logo" src={"/logo.png"} />
             </div>
+            </Link>
 
             {/* Liens de navigation à droite */}
             <div className="hidden sm:block">
               <div className="ml-4 flex items-center space-x-4">
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   className="text-black-700 hover:text-black-900 px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Accueil
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/blog"
                   className="text-black-700 hover:text-black-900 px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Blog
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   className="text-black-700 hover:text-black-900 px-3 py-2 rounded-md text-sm font-medium"
                 >
                   À Propos
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -65,17 +71,7 @@ const Header = () => {
         </div>
       </nav>
       <HeroSection />
-      <div className=" py-8 border-2">
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center ">
-    <h2 className="text-5xl font-bold text-gray-800 mb-4 playfair-display">
-      Bienvenue sur Culiko
-    </h2>
-    <p className="text-lg text-gray-700">
-      Découvrez une multitude de délices culinaires à savourer !
-    </p>
-  </div>
-</div>
-
+     
     </div>
   );
 };
