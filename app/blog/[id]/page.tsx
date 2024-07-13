@@ -19,12 +19,12 @@ interface Post {
 
 interface BlogDetailProps {
   params: {
-    slug: string;
+    id: string;
   };
 }
 
-const fetchPost = async (slug: string): Promise<Post> => {
-  const res = await fetch(`/api/recipes/${slug}`);
+const fetchPost = async (id: string): Promise<Post> => {
+  const res = await fetch(`/api/recipes/${id}`);
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
@@ -32,9 +32,9 @@ const fetchPost = async (slug: string): Promise<Post> => {
 };
 
 const BlogDetail: React.FC<BlogDetailProps> = ({ params }) => {
-  const { slug } = params;
+  const { id } = params;
 
-  const { data: post, isLoading, isError } = useQuery<Post, Error>(['post', slug], () => fetchPost(slug));
+  const { data: post, isLoading, isError } = useQuery<Post, Error>(['post', id], () => fetchPost(id));
 
   if (isLoading) {
     return (
