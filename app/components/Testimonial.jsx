@@ -3,14 +3,10 @@ import React from 'react';
 import Image from 'next/image';
 import { Carousel, IconButton } from "@material-tailwind/react";
 
-type Testimonial = {
-  name: string;
-  avatar: string;
-  quote: string;
-};
+  
 
-const TestimonialsSection: React.FC = () => {
-  const testimonials: Testimonial[] = [
+const TestimonialsSection = () => {
+  const testimonials = [
     {
       name: 'Alice Martin',
       avatar: '/avatar1.png',
