@@ -1,7 +1,5 @@
 // next.config.mjs
-import { defineConfig } from 'next/config';
-
-export default defineConfig({
+const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
@@ -18,4 +16,6 @@ export default defineConfig({
       },
     ];
   },
-});
+};
+
+export default nextConfig;
