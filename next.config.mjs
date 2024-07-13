@@ -12,7 +12,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://api.culiko.vercel.app/:path*', // Proxy to Backend
+        destination: 'https://culiko.vercel.app/api/:path*', // Proxy to Backend
       },
     ];
   },
