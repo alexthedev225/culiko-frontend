@@ -1,17 +1,21 @@
-const nextConfig = {
-  images: {
-    domains: ['localhost', 'culiko.vercel.app'], // Ajoutez ici votre domaine déployé
-  },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        fs: false,
-        path: false,
-        os: false,
-      };
-    }
-    return config;
-  },
-};
+// next.config.mjs
+import { defineConfig } from 'next/config';
 
-export default nextConfig;
+export default defineConfig({
+  reactStrictMode: true,
+  swcMinify: true,
+  images: {
+    domains: ['culiko.vercel.app'], // Ajoutez ici les domaines autorisés pour les images
+  },
+  env: {
+    DATABASE_URL: process.env.DATABASE_URL, // Exemple de variable d'environnement
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://api.culiko.vercel.app/:path*', // Proxy to Backend
+      },
+    ];
+  },
+});

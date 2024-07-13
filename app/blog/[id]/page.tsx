@@ -83,7 +83,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ params }) => {
               sizes="(max-width: 768px) 100vw, 50vw"
               style={{ objectFit: 'cover' }}
               className="transition-opacity duration-300 transform hover:opacity-90"
-              priority // Ajoutez cette propriété
+              priority
             />
           </div>
           <div className="bg-white p-6 shadow-lg rounded-lg">

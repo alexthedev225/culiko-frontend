@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 // Fonction pour récupérer une recette par ID
 export async function GET(req, { params }) {
   const { id } = params;
-  console.log(`Received request for recipe with ID: ${id}`); // Ajout du log
+  console.log(`Received request for recipe with ID: ${id}`);
 
   try {
     const recipe = await prisma.recipe.findUnique({
@@ -12,14 +12,14 @@ export async function GET(req, { params }) {
     });
 
     if (!recipe) {
-      console.log(`Recipe not found for ID: ${id}`); // Log si la recette n'est pas trouvée
+      console.log(`Recipe not found for ID: ${id}`);
       return NextResponse.json({ status: 'fail', message: 'Recette non trouvée' }, { status: 404 });
     }
 
-    console.log(`Recipe found:`, recipe); // Log si la recette est trouvée
+    console.log(`Recipe found:`, recipe);
     return NextResponse.json(recipe);
   } catch (error) {
-    console.error(`Error fetching recipe: ${error.message}`); // Log d'erreur
+    console.error(`Error fetching recipe: ${error.message}`);
     return NextResponse.json({ status: 'fail', message: error.message }, { status: 500 });
   }
 }
@@ -49,6 +49,7 @@ export async function PUT(req, { params }) {
 
     return NextResponse.json(updatedRecipe, { status: 200 });
   } catch (error) {
+    console.error(`Error updating recipe: ${error.message}`);
     return NextResponse.json({ status: 'fail', message: error.message }, { status: 500 });
   }
 }
@@ -63,6 +64,7 @@ export async function DELETE(req, { params }) {
     });
     return NextResponse.json(deletedRecipe, { status: 200 });
   } catch (error) {
+    console.error(`Error deleting recipe: ${error.message}`);
     return NextResponse.json({ status: 'fail', message: error.message }, { status: 500 });
   }
 }
