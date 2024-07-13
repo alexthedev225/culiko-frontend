@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 import fs from 'fs';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
@@ -6,7 +6,6 @@ import prisma from '@/lib/prisma';
 
 const pump = promisify(pipeline);
 
-// Fonction pour gérer le téléchargement et la création de recettes
 export async function POST(req) {
   try {
     const formData = await req.formData();
@@ -22,14 +21,12 @@ export async function POST(req) {
 
     let imagePath = null;
 
-    // Vérification et gestion de l'upload de l'image
     if (file) {
       const filePath = `./public/uploads/${file.name}`;
       await pump(file.stream(), fs.createWriteStream(filePath));
-      imagePath = `/uploads/${file.name}`; // Chemin accessible pour l'image
+      imagePath = `/uploads/${file.name}`;
     }
 
-    // Création de la recette dans la base de données
     const newRecipe = await prisma.recipe.create({
       data: {
         title,
@@ -39,8 +36,8 @@ export async function POST(req) {
         diet,
         calories,
         imagePath,
-        ingredients: JSON.stringify(ingredients), // Stockage en JSON
-        instructions: JSON.stringify(instructions), // Stockage en JSON
+        ingredients: JSON.stringify(ingredients),
+        instructions: JSON.stringify(instructions),
       },
     });
 
@@ -50,7 +47,6 @@ export async function POST(req) {
   }
 }
 
-// Fonction pour récupérer toutes les recettes
 export async function GET() {
   try {
     const recipes = await prisma.recipe.findMany();
@@ -60,9 +56,8 @@ export async function GET() {
   }
 }
 
-// Fonction pour mettre à jour une recette
 export async function PUT(req) {
-  const { id } = req.query; // Récupération de l'ID de la recette
+  const { id } = req.query;
   const formData = await req.formData();
 
   try {
@@ -83,14 +78,12 @@ export async function PUT(req) {
 
     let imagePath = recipe.imagePath;
 
-    // Gestion de l'upload de l'image si une nouvelle image est fournie
     if (file) {
       const filePath = `./public/uploads/${file.name}`;
       await pump(file.stream(), fs.createWriteStream(filePath));
-      imagePath = `/uploads/${file.name}`; // Chemin mis à jour pour l'image
+      imagePath = `/uploads/${file.name}`;
     }
 
-    // Mise à jour de la recette
     const updatedRecipe = await prisma.recipe.update({
       where: { id: Number(id) },
       data: {
@@ -112,9 +105,8 @@ export async function PUT(req) {
   }
 }
 
-// Fonction pour supprimer une recette
 export async function DELETE(req) {
-  const { id } = req.query; // Récupération de l'ID de la recette
+  const { id } = req.query;
 
   try {
     const deletedRecipe = await prisma.recipe.delete({
