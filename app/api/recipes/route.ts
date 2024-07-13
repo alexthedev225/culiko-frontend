@@ -6,11 +6,7 @@ import prisma from '@/lib/prisma';
 
 const pump = promisify(pipeline);
 
-export const config = {
-  api: {
-    bodyParser: false, // Désactiver le parsing par défaut de Next.js
-  },
-};
+export const runtime = 'edge';
 
 // Fonction pour gérer le téléchargement et la création de recettes
 export async function POST(req) {
