@@ -38,10 +38,9 @@ export async function PUT(req, { params }) {
         excerpt: formData.get('excerpt') || recipe.excerpt,
         category: formData.get('category') || recipe.category,
         content: formData.get('content') || recipe.content,
-        imagePath: formData.get('imagePath') || recipe.imagePath,
         ingredients: JSON.stringify(JSON.parse(formData.get('ingredients')) || JSON.parse(recipe.ingredients)),
         instructions: JSON.stringify(JSON.parse(formData.get('instructions')) || JSON.parse(recipe.instructions)),
-        calories: formData.get('calories') ? Number(formData.get('calories')) : recipe.calories,
+        calories: parseInt(formData.get('calories')) || recipe.calories, // Convertir en entier
         diet: formData.get('diet') || recipe.diet,
       },
     });
