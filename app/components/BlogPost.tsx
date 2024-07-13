@@ -22,8 +22,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, image, excerpt, calories, id
               <Image
                 src={image}
                 alt="article image"
-                layout="fill" // Remplit le conteneur
-                objectFit="cover" // Couvre tout l'espace du conteneur
+                fill // Utilisez fill pour remplir le conteneur
+                sizes="(max-width: 768px) 100vw, 50vw" // Ajustez la taille pour différentes résolutions
+                style={{ objectFit: 'cover' }} // Définissez l'ajustement d'objet ici
                 className="transition-opacity duration-300 transform hover:opacity-90"
               />
             )}
