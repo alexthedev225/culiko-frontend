@@ -6,8 +6,6 @@ import prisma from '@/lib/prisma';
 
 const pump = promisify(pipeline);
 
-export const runtime = 'edge';
-
 // Fonction pour gérer le téléchargement et la création de recettes
 export async function POST(req) {
   try {
@@ -16,7 +14,7 @@ export async function POST(req) {
     const excerpt = formData.get('excerpt');
     const category = formData.get('category');
     const content = formData.get('content');
-   const calories = Number(formData.get('calories'));
+    const calories = Number(formData.get('calories'));
     const diet = formData.get('diet');
     const ingredients = JSON.parse(formData.get('ingredients'));
     const instructions = JSON.parse(formData.get('instructions'));
