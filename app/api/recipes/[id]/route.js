@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 // Fonction pour récupérer une recette par ID
 export async function GET(req, { params }) {
   const { id } = params;
+  console.log(`Received request for recipe with ID: ${id}`); // Ajout du log
 
   try {
     const recipe = await prisma.recipe.findUnique({
@@ -11,11 +12,14 @@ export async function GET(req, { params }) {
     });
 
     if (!recipe) {
+      console.log(`Recipe not found for ID: ${id}`); // Log si la recette n'est pas trouvée
       return NextResponse.json({ status: 'fail', message: 'Recette non trouvée' }, { status: 404 });
     }
 
+    console.log(`Recipe found:`, recipe); // Log si la recette est trouvée
     return NextResponse.json(recipe);
   } catch (error) {
+    console.error(`Error fetching recipe: ${error.message}`); // Log d'erreur
     return NextResponse.json({ status: 'fail', message: error.message }, { status: 500 });
   }
 }
