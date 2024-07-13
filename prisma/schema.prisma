@@ -1,0 +1,21 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Recipe {
+  id          Int     @id @default(autoincrement())
+  title       String
+  excerpt     String
+  category    String
+  content     String
+  imagePath   String?
+  ingredients String   @default("[]") // Valeur par défaut
+  instructions String  @default("[]") // Valeur par défaut
+  calories    Int?
+  diet        String?
+}

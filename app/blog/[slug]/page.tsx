@@ -1,83 +1,90 @@
 "use client"
-import Image from 'next/image';
-import blogPosts from '../../data/blogPosts.json'; // Chemin vers votre fichier JSON de données de blog
-import { useRouter } from 'next/navigation'
-import { ArrowLeftIcon } from '@heroicons/react/24/solid'; // Import de l'icône de flèche gauche de Heroicons
+import React from 'react';
+import { useQuery } from 'react-query';
+import BackButton from '@/app/components/BackButton';
 
-
-type BlogPost = {
-    slug: string;
-    title: string;
-    image?: string;
-    content: string;
-    recipe: {
-      ingredients: string[];
-      instructions: string[];
-    };
-  };
-
-  const defaultImage = '/defaultFood.jpg'; // Chemin vers votre image par défaut
-
-const BlogDetail = ({ params }: { params: { slug: string } }) => {
-    const navigation = useRouter(); // Utilisation de useNavigation au lieu de useRouter
- 
-    const handleGoBack = () => {
-        navigation.back(); // Navigue vers la page précédente avec useNavigation
-      };
-    
-
-  const  slug  = params.slug;
-  const post: BlogPost | undefined = blogPosts.find((post) => post.slug === slug);
-
-  if (!post) {
-    return <p>Article non trouvé</p>; // Gestion du cas où l'article n'est pas trouvé
+const fetchPost = async (slug) => {
+  const res = await fetch(`/api/recipes/${slug}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
+  return res.json();
+};
+
+const BlogDetail = ({ params }) => {
+  const { slug } = params;
+
+  const { data: post, isLoading, isError } = useQuery(['post', slug], () => fetchPost(slug));
+
+  if (isLoading) {
+    return (
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-gray-700">Loading...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (isError) {
+    return (
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-red-500">Failed to load data. Please try again later.</p>
+        </div>
+      </section>
+    );
+  }
+
+  const ingredients = JSON.parse(post.ingredients);
+  const instructions = JSON.parse(post.instructions);
 
   return (
     <section className="py-12 bg-gray-50">
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-    <button
-          onClick={handleGoBack}
-          className=" bg-black hover:bg-gray-900 transition-all ease-in-out 1s text-white py-2 px-4 rounded-lg flex items-center focus:outline-none z-10"
-        >
-          <ArrowLeftIcon className="h-6 w-6 mr-2" /> Retour
-        </button>
-      <h1 className="text-3xl font-bold text-center mb-8 playfair-display">{post.title}</h1>
-      <div className="max-w-4xl mx-auto">
-      {post.image ? (
-            <Image src={'/defaultFood.jpg'} alt={post.title} width={800} height={500} className="w-full h-96 object-cover mb-8" />
-          ) : (
-            <div className="w-full h-96 bg-gray-300 mb-8">
-              <Image src={defaultImage} alt={post.title} layout="fill" objectFit="cover" />
-            </div>
-          )}
-        <div className="bg-white p-6 shadow-lg rounded-lg">
-          <p className="text-gray-700">{post.content}</p>
-
-          {/* Affichage des ingrédients */}
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold mb-4">Ingrédients :</h2>
-            <ul className="list-disc list-inside">
-              {post.recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <BackButton />
+        <h1 className="text-3xl font-bold text-center mb-8 playfair-display">{post.title}</h1>
+        <div className="max-w-4xl mx-auto">
+          <div className="w-full bg-gray-300 mb-8 relative rounded-lg overflow-hidden">
+            <img src={post.imagePath} alt={post.title} className="w-full h-full object-cover" />
           </div>
+          <div className="bg-white p-6 shadow-lg rounded-lg">
+            <p className="text-gray-700 text-lg">{post.content}</p>
 
-          {/* Affichage des instructions */}
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold mb-4">Instructions :</h2>
-            <ol className="list-decimal list-inside">
-              {post.recipe.instructions.map((instruction, index) => (
-                <li key={index}>{instruction}</li>
-              ))}
-            </ol>
+            {/* Affichage des ingrédients */}
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold mb-4">Ingrédients :</h2>
+              <ul className="list-disc list-inside">
+                {ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Affichage des instructions */}
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold mb-4">Instructions :</h2>
+              <ol className="list-decimal list-inside space-y-3">
+                {instructions.map((instruction, index) => (
+                  <li key={index}>{instruction}</li>
+                ))}
+              </ol>
+            </div>
+
+            {/* Affichage des informations nutritionnelles */}
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold mb-4">Informations nutritionnelles :</h2>
+              <p>
+                <span className="font-semibold">Calories :</span> {post.calories ? `${post.calories} kcal` : 'Non spécifié'}
+              </p>
+              <p>
+                <span className="font-semibold">Régime alimentaire :</span> {post.diet ? post.diet : 'Non spécifié'}
+              </p>
+            </div>
           </div>
         </div>
-
       </div>
-    </div>
-  </section>
+    </section>
   );
 };
 

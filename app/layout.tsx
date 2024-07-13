@@ -36,11 +36,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} w-full`}>
         <Header />
-        <main>
-          
-
-          {children}
-        </main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

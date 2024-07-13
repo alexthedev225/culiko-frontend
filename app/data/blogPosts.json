@@ -1,10 +1,9 @@
-[
+  [
     {
-      "slug": "delicieux-petit-dejeuner-equilibre",
       "title": "Délicieux petit déjeuner équilibré",
-      "image": "/breakfast1.jpg",
+
       "excerpt": "Commencez votre journée avec cette recette saine...",
-      "date": "2024-03-21",
+
       "category": "Petit déjeuner",
       "content": "Commencez votre journée avec ce délicieux petit déjeuner équilibré. Cette recette contient une combinaison parfaite de nutriments pour vous donner l'énergie dont vous avez besoin pour bien démarrer la journée.",
       "recipe": {
@@ -24,24 +23,23 @@
       }
     },
     {
-      "slug": "smoothie-aux-fruits",
       "title": "Smoothie aux fruits",
-      "image": "/breakfast2.jpg",
       "excerpt": "Un smoothie rafraîchissant pour bien commencer la journée...",
-      "date": "2024-04-10",
       "category": "Petit déjeuner",
       "content": "Préparez-vous un smoothie aux fruits rafraîchissant pour bien commencer la journée. Ce smoothie est plein de vitamines et de saveurs naturelles pour vous donner un coup de fouet dès le matin.",
       "recipe": {
         "ingredients": [
           "1 tasse de fraises",
-          "1 banane",
+          "2 bananes",
           "1/2 tasse de lait d'amande",
           "1 cuillère à soupe de miel"
         ],
         "instructions": [
-          "Mettez tous les ingrédients dans un mixeur.",
-          "Mélangez jusqu'à obtention d'une consistance lisse.",
-          "Servez immédiatement dans un verre frais."
+          "Rincez soigneusement les bananes sous l'eau froide pour enlever toute saleté ou résidu.",
+          "Découpez soigneusement les bananes en petits morceaux en enlevant les extrémités. Assurez-vous que les morceaux sont de taille uniforme pour un mélange homogène.",
+          "Mettez tous les morceaux de banane dans un mixeur. Ensuite, ajoutez les autres ingrédients dans le mixeur.",
+          "Mixez à haute vitesse jusqu'à ce que le mélange devienne parfaitement lisse et crémeux, sans morceaux visibles.",
+          "Versez immédiatement le mélange dans un verre frais et servez. Vous pouvez ajouter des glaçons ou des tranches de banane pour la garniture."
         ]
       }
     },
@@ -307,4 +305,3 @@
       }
     }
   ]
-  
