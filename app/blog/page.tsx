@@ -5,19 +5,32 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import BlogPost from '../components/BlogPost';
 
-const fetchRecipes = async () => {
+interface Recipe {
+  id: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  imagePath?: string;
+  calories?: number;
+  diet?: string;
+}
+
+const fetchRecipes = async (): Promise<Recipe[]> => {
   const response = await axios.get('/api/recipes');
   return response.data;
 };
 
 const Blog: React.FC = () => {
-  const { data: recipes, error, isLoading } = useQuery('recipes', fetchRecipes);
+  const { data: recipes, error, isLoading } = useQuery<Recipe[], Error>('recipes', fetchRecipes);
 
   const categories = ["Petit déjeuner", "Dessert", "Plats principaux", "Entrée"];
   const defaultImageUrl = '/defaultFood.jpg'; // URL de l'image par défaut
 
   if (isLoading) return <p>Chargement en cours...</p>;
   if (error) return <p>Erreur lors du chargement des données: {error.message}</p>;
+
+  // Vérification pour éviter l'erreur si recipes est undefined
+  if (!recipes) return <p>Aucune recette trouvée.</p>;
 
   return (
     <div className="py-12 bg-gray-100">
@@ -39,7 +52,7 @@ const Blog: React.FC = () => {
                     calories={recipe.calories}
                     diet={recipe.diet}
                     excerpt={recipe.excerpt}
-                    slug={recipe.title} // Utilisez le titre ou un identifiant unique
+                    id={recipe.id} // Utilisez le titre ou un identifiant unique
                   />
                 ))}
             </div>

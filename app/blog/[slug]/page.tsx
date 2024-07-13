@@ -1,9 +1,29 @@
-"use client"
+"use client";
+
 import React from 'react';
 import { useQuery } from 'react-query';
 import BackButton from '@/app/components/BackButton';
+import Image from 'next/image';
 
-const fetchPost = async (slug) => {
+interface Post {
+  title: string;
+  excerpt: string;
+  category: string;
+  content: string;
+  diet?: string;
+  calories?: number;
+  imagePath: string;
+  ingredients: string;
+  instructions: string;
+}
+
+interface BlogDetailProps {
+  params: {
+    slug: string;
+  };
+}
+
+const fetchPost = async (slug: string): Promise<Post> => {
   const res = await fetch(`/api/recipes/${slug}`);
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
@@ -11,10 +31,10 @@ const fetchPost = async (slug) => {
   return res.json();
 };
 
-const BlogDetail = ({ params }) => {
+const BlogDetail: React.FC<BlogDetailProps> = ({ params }) => {
   const { slug } = params;
 
-  const { data: post, isLoading, isError } = useQuery(['post', slug], () => fetchPost(slug));
+  const { data: post, isLoading, isError } = useQuery<Post, Error>(['post', slug], () => fetchPost(slug));
 
   if (isLoading) {
     return (
@@ -36,6 +56,16 @@ const BlogDetail = ({ params }) => {
     );
   }
 
+  if (!post) {
+    return (
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-red-500">Recette non trouvée.</p>
+        </div>
+      </section>
+    );
+  }
+
   const ingredients = JSON.parse(post.ingredients);
   const instructions = JSON.parse(post.instructions);
 
@@ -45,8 +75,14 @@ const BlogDetail = ({ params }) => {
         <BackButton />
         <h1 className="text-3xl font-bold text-center mb-8 playfair-display">{post.title}</h1>
         <div className="max-w-4xl mx-auto">
-          <div className="w-full bg-gray-300 mb-8 relative rounded-lg overflow-hidden">
-            <img src={post.imagePath} alt={post.title} className="w-full h-full object-cover" />
+          <div className="w-full bg-gray-300 mb-8 relative rounded-lg overflow-hidden h-96"> {/* Ajustez la hauteur ici */}
+            <Image
+              src={post.imagePath}
+              alt={post.title}
+              layout="fill" // Remplit le conteneur
+              objectFit="cover" // Couvre tout l'espace du conteneur
+              className="transition-opacity duration-300 transform hover:opacity-90"
+            />
           </div>
           <div className="bg-white p-6 shadow-lg rounded-lg">
             <p className="text-gray-700 text-lg">{post.content}</p>
@@ -55,7 +91,7 @@ const BlogDetail = ({ params }) => {
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Ingrédients :</h2>
               <ul className="list-disc list-inside">
-                {ingredients.map((ingredient, index) => (
+                {ingredients.map((ingredient: string, index: number) => (
                   <li key={index}>{ingredient}</li>
                 ))}
               </ul>
@@ -65,7 +101,7 @@ const BlogDetail = ({ params }) => {
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Instructions :</h2>
               <ol className="list-decimal list-inside space-y-3">
-                {instructions.map((instruction, index) => (
+                {instructions.map((instruction: string, index: number) => (
                   <li key={index}>{instruction}</li>
                 ))}
               </ol>

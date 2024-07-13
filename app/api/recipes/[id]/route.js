@@ -40,8 +40,6 @@ export async function PUT(req, { params }) {
         content: formData.get('content') || recipe.content,
         ingredients: JSON.stringify(JSON.parse(formData.get('ingredients')) || JSON.parse(recipe.ingredients)),
         instructions: JSON.stringify(JSON.parse(formData.get('instructions')) || JSON.parse(recipe.instructions)),
-        calories: parseInt(formData.get('calories')) || recipe.calories, // Convertir en entier
-        diet: formData.get('diet') || recipe.diet,
       },
     });
 

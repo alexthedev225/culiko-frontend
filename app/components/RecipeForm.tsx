@@ -1,9 +1,23 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import axios from "axios";
 
-const RecipeForm = () => {
-  const [recipeData, setRecipeData] = useState({
+interface Recipe {
+  title: string;
+  excerpt: string;
+  category: string;
+  content: string;
+  recipe: {
+    ingredients: string[];
+    instructions: string[];
+  };
+  calories: string; // Vous pouvez aussi le changer en number si nécessaire
+  diet: string;
+  imagePath: File | null; // Typé comme un fichier ou null
+}
+
+const RecipeForm: React.FC = () => {
+  const [recipeData, setRecipeData] = useState<Recipe>({
     title: "",
     excerpt: "",
     category: "",
@@ -17,55 +31,58 @@ const RecipeForm = () => {
     imagePath: null,
   });
 
-  const [newIngredient, setNewIngredient] = useState("");
-  const [newInstruction, setNewInstruction] = useState("");
+  const [newIngredient, setNewIngredient] = useState<string>("");
+  const [newInstruction, setNewInstruction] = useState<string>("");
 
   const categories = ["Petit déjeuner", "Dessert", "Plats principaux", "Entrée"];
   const dietOptions = ["Végétarien", "Végétalien", "Sans gluten", "Cétogène", "Autre"];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, files } = e.target as HTMLInputElement & { files?: FileList };
+  
     if (name === "imagePath") {
+      const file = files?.[0] || null; // Récupérer le fichier ou null
       setRecipeData({
         ...recipeData,
-        imagePath: e.target.files[0],
+        imagePath: file,
       });
     } else {
       setRecipeData({ ...recipeData, [name]: value });
     }
   };
+  
 
-  const handleAddItem = (type) => {
+  const handleAddItem = (type: "ingredients" | "instructions") => {
     if (type === "ingredients" && newIngredient.trim() !== "") {
-      setRecipeData({
-        ...recipeData,
+      setRecipeData((prevData) => ({
+        ...prevData,
         recipe: {
-          ...recipeData.recipe,
-          ingredients: [...recipeData.recipe.ingredients, newIngredient.trim()],
+          ...prevData.recipe,
+          ingredients: [...prevData.recipe.ingredients, newIngredient.trim()],
         },
-      });
+      }));
       setNewIngredient("");
     } else if (type === "instructions" && newInstruction.trim() !== "") {
-      setRecipeData({
-        ...recipeData,
+      setRecipeData((prevData) => ({
+        ...prevData,
         recipe: {
-          ...recipeData.recipe,
-          instructions: [...recipeData.recipe.instructions, newInstruction.trim()],
+          ...prevData.recipe,
+          instructions: [...prevData.recipe.instructions, newInstruction.trim()],
         },
-      });
+      }));
       setNewInstruction("");
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", recipeData.title);
     formData.append("excerpt", recipeData.excerpt);
     formData.append("category", recipeData.category);
     formData.append("content", recipeData.content);
-    formData.append("ingredients", JSON.stringify(recipeData.recipe.ingredients)); // Changement ici
-    formData.append("instructions", JSON.stringify(recipeData.recipe.instructions)); // Changement ici
+    formData.append("ingredients", JSON.stringify(recipeData.recipe.ingredients));
+    formData.append("instructions", JSON.stringify(recipeData.recipe.instructions));
     formData.append("calories", recipeData.calories);
     formData.append("diet", recipeData.diet);
     if (recipeData.imagePath) {
@@ -98,14 +115,14 @@ const RecipeForm = () => {
     }
   };
 
-  const handleSelectCategory = (category) => {
+  const handleSelectCategory = (category: string) => {
     setRecipeData({
       ...recipeData,
       category,
     });
   };
 
-  const handleSelectDiet = (diet) => {
+  const handleSelectDiet = (diet: string) => {
     setRecipeData({
       ...recipeData,
       diet,
