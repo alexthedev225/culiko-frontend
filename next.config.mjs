@@ -1,6 +1,6 @@
 const nextConfig = {
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'culiko.vercel.app'], // Ajoutez ici votre domaine déployé
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
