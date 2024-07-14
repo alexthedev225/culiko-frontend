@@ -76,7 +76,7 @@ const TestimonialsSection = () => {
         prevArrow={({ handlePrev }) => (
           <IconButton
             variant="text"
-            color="blue"
+            color="pink"
             size="lg"
             onClick={handlePrev}
             className="!absolute top-2/4 left-4 -translate-y-2/4"
@@ -101,7 +101,7 @@ const TestimonialsSection = () => {
         nextArrow={({ handleNext }) => (
           <IconButton
             variant="text"
-            color="blue"
+            color="pink"
             size="lg"
             onClick={handleNext}
             className="!absolute top-2/4 !right-4 -translate-y-2/4"
@@ -128,7 +128,7 @@ const TestimonialsSection = () => {
               <span
                 key={i}
                 className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                  activeIndex === i ? "w-8 bg-blue-400" : "w-4 bg-blue-400/50"
+                  activeIndex === i ? "w-8 bg-pink-500" : "w-4 bg-pink-500/50"
                 }`}
                 onClick={() => setActiveIndex(i)}
               />

@@ -26,9 +26,16 @@ const Blog: React.FC = async () => {
   const defaultImageUrl = '/defaultFood.jpg'; // URL de l'image par défaut
 
   return (
-    <div className="py-12 bg-gray-100">
+    <div className="py-12 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-5xl font-bold text-center mb-8 playfair-display">Blog</h2>
+        
+        {/* Avertissement moderne */}
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-8 rounded-md">
+          <p className="font-semibold">
+            Avertissement : Toutes les recettes présentées ici sont générées par une intelligence artificielle.
+          </p>
+        </div>
 
         {/* Affichage des recettes par catégorie */}
         {categories.map((category, index) => (

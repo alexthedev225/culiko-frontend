@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <nav className="bg-white dark:bg-gray-900 dark:border-gray-700 border-b-2">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className=" flex flex-wrap items-center justify-between mx-auto p-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <Image height={32} width={100} alt="logo" src="/logo.png" />
         </Link>
@@ -37,7 +37,7 @@ const Header = () => {
             <li>
               <Link
                 href="/"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-700 ${pathname === '/' ? 'text-blue-700' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-700 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
               >
                 Accueil
               </Link>
@@ -45,7 +45,7 @@ const Header = () => {
             <li>
               <Link
                 href="/blog"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-700 ${pathname === '/blog' ? 'text-blue-700' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-700 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/blog' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
               >
                 Blog
               </Link>
@@ -53,7 +53,7 @@ const Header = () => {
             <li>
               <Link
                 href="#"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-700 ${pathname === '/about' ? 'text-blue-700' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-700 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/about' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
               >
                 À Propos
               </Link>
@@ -68,7 +68,7 @@ const Header = () => {
             <li>
               <Link
                 href="/"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-700 ${pathname === '/' ? 'text-blue-700 bg-blue-400' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
               >
                 Accueil
               </Link>
@@ -76,7 +76,7 @@ const Header = () => {
             <li>
               <Link
                 href="/blog"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-700 ${pathname === '/blog' ? 'text-blue-700 bg-blue-400' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/blog' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
               >
                 Blog
               </Link>
@@ -84,7 +84,7 @@ const Header = () => {
             <li>
               <Link
                 href="#"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-700 ${pathname === '/about' ? 'text-blue-700 bg-blue-400' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/about' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
               >
                 À Propos
               </Link>

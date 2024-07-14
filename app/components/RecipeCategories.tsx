@@ -18,7 +18,7 @@ const RecipeCategories = () => {
             </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold mb-2">Desserts</h3>
-              <a href="#" className="text-blue-500 hover:text-blue-600 font-medium">
+              <a href="#" className="text-pink-500 hover:text-pink-600 font-medium">
                 Voir les recettes
               </a>
             </div>
@@ -35,7 +35,7 @@ const RecipeCategories = () => {
             </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold mb-2">Plats principaux</h3>
-              <a href="#" className="text-blue-500 hover:text-blue-600 font-medium">
+              <a href="#" className="text-pink-500 hover:text-pink-600 font-medium">
                 Voir les recettes
               </a>
             </div>
@@ -52,7 +52,7 @@ const RecipeCategories = () => {
             </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold mb-2">Entrées</h3>
-              <a href="#" className="text-blue-500 hover:text-blue-600 font-medium">
+              <a href="#" className="text-pink-500 hover:text-pink-600 font-medium">
                 Voir les recettes
               </a>
             </div>
@@ -69,7 +69,7 @@ const RecipeCategories = () => {
             </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold mb-2">Petit-déjeuner</h3>
-              <a href="#" className="text-blue-500 hover:text-blue-600 font-medium">
+              <a href="#" className="text-pink-500 hover:text-pink-600 font-medium">
                 Voir les recettes
               </a>
             </div>

@@ -90,6 +90,7 @@ const RecipeForm: React.FC = () => {
     }
 
     try {
+      const baseUrl = `${process.env.API_VERCEL_URL}/api`;
       const response = await axios.post(`/api/recipes`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -288,7 +289,7 @@ const RecipeForm: React.FC = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="w-full bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            className="w-full bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
           >
             Soumettre
           </button>
