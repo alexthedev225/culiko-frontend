@@ -16,7 +16,7 @@ interface Recipe {
 }
 
 const fetchRecipes = async (): Promise<Recipe[]> => {
-  const response = await axios.get('/api/recipes');
+  const response = await axios.get('https://culiko.vercel.app/api/recipes');
   return response.data;
 };
 
