@@ -49,7 +49,7 @@ const TestimonialsSection = () => {
     <section className="py-12  bg-white">
       <div className="flex flex-col items-center container mx-auto sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center mb-8 playfair-display">Ce que disent nos clients</h2>
-        <div className='h-[22rem] w-[35rem] '>
+        <div className='h-[25rem] w-[20rem]  sm:w-[30rem] md:w-[35rem]'>
         <Carousel className="rounded-xl " responsive={[
           {
             breakpoint: 1024,
