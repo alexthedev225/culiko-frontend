@@ -1,8 +1,4 @@
-"use client";
-
 import React from 'react';
-import { useQuery } from 'react-query';
-import BackButton from '@/app/components/BackButton';
 import Image from 'next/image';
 
 interface Post {
@@ -31,48 +27,15 @@ const fetchPost = async (id: string): Promise<Post> => {
   return res.json();
 };
 
-const BlogDetail: React.FC<BlogDetailProps> = ({ params }) => {
+const BlogDetail: React.FC<BlogDetailProps> = async ({ params }) => {
   const { id } = params;
-
-  const { data: post, isLoading, isError } = useQuery<Post, Error>(['post', id], () => fetchPost(id));
-
-  if (isLoading) {
-    return (
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-gray-700">Loading...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (isError) {
-    return (
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-red-500">Failed to load data. Please try again later.</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (!post) {
-    return (
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-red-500">Recette non trouvée.</p>
-        </div>
-      </section>
-    );
-  }
-
+  const post = await fetchPost(id)
   const ingredients = JSON.parse(post.ingredients);
   const instructions = JSON.parse(post.instructions);
 
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <BackButton />
         <h1 className="text-3xl font-bold text-center mb-8 playfair-display">{post.title}</h1>
         <div className="max-w-4xl mx-auto">
           <div className="w-full bg-gray-300 mb-8 relative rounded-lg overflow-hidden h-96">
