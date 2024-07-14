@@ -15,12 +15,12 @@ interface Post {
 
 interface BlogDetailProps {
   params: {
-    id: string;
+    slug: string;
   };
 }
 
 const fetchPost = async (id: string): Promise<Post> => {
-  const res = await fetch(`https://culiko.vercel.app/api/recipes/${id}`);
+  const res = await fetch(`https://culiko.vercel.app/api/recipes/${slug}`);
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
@@ -28,8 +28,8 @@ const fetchPost = async (id: string): Promise<Post> => {
 };
 
 const BlogDetail: React.FC<BlogDetailProps> = async ({ params }) => {
-  const { id } = params;
-  const post = await fetchPost(id)
+  const { slug } = params;
+  const post = await fetchPost(slug)
   const ingredients = JSON.parse(post.ingredients);
   const instructions = JSON.parse(post.instructions);
 
