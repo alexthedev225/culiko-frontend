@@ -52,7 +52,7 @@ const Blog: React.FC = () => {
                     calories={recipe.calories}
                     diet={recipe.diet}
                     excerpt={recipe.excerpt}
-                    id={recipe.id} // Utilisez le titre ou un identifiant unique
+                    slug={recipe.id} // Utilisez le titre ou un identifiant unique
                   />
                 ))}
             </div>

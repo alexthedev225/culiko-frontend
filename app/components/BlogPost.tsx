@@ -8,13 +8,13 @@ interface BlogPostProps {
   excerpt: string;
   calories?: number; // Changer le type en number
   diet?: string; // Rendre diet optionnel
-  id: string;
+  slug: string;
 }
 
-const BlogPost: React.FC<BlogPostProps> = ({ title, image, excerpt, calories, id, diet }) => {
+const BlogPost: React.FC<BlogPostProps> = ({ title, image, excerpt, calories, slug, diet }) => {
   return (
     <div className="bg-white overflow-hidden shadow rounded-lg">
-      <Link href={`/blog/${id}`}>
+      <Link href={`/blog/${slug}`}>
         <div className="block">
           {/* Image avec taille fixe */}
           <div className="relative overflow-hidden rounded-t-lg h-48"> {/* Ajustez la hauteur ici */}
