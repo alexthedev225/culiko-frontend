@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import fs from 'fs';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
@@ -41,18 +40,18 @@ export async function POST(req) {
       },
     });
 
-    return NextResponse.json(newRecipe, { status: 201 });
+    return Response.json(newRecipe, { status: 201 });
   } catch (e) {
-    return NextResponse.json({ status: "fail", message: e.message }, { status: 500 });
+    return Response.json({ status: "fail", message: e.message }, { status: 500 });
   }
 }
 
 export async function GET() {
   try {
     const recipes = await prisma.recipe.findMany();
-    return NextResponse.json(recipes);
+    return Response.json(recipes);
   } catch (e) {
-    return NextResponse.json({ status: "fail", message: e.message }, { status: 500 });
+    return Response.json({ status: "fail", message: e.message }, { status: 500 });
   }
 }
 
@@ -63,7 +62,7 @@ export async function PUT(req) {
   try {
     const recipe = await prisma.recipe.findUnique({ where: { id: Number(id) } });
     if (!recipe) {
-      return NextResponse.json({ status: "fail", message: "Recette non trouvée" }, { status: 404 });
+      return Response.json({ status: "fail", message: "Recette non trouvée" }, { status: 404 });
     }
 
     const title = formData.get('title') || recipe.title;
@@ -99,9 +98,9 @@ export async function PUT(req) {
       },
     });
 
-    return NextResponse.json(updatedRecipe, { status: 200 });
+    return Response.json(updatedRecipe, { status: 200 });
   } catch (e) {
-    return NextResponse.json({ status: "fail", message: e.message }, { status: 500 });
+    return Response.json({ status: "fail", message: e.message }, { status: 500 });
   }
 }
 
@@ -112,8 +111,8 @@ export async function DELETE(req) {
     const deletedRecipe = await prisma.recipe.delete({
       where: { id: Number(id) },
     });
-    return NextResponse.json(deletedRecipe, { status: 200 });
+    return Response.json(deletedRecipe, { status: 200 });
   } catch (e) {
-    return NextResponse.json({ status: "fail", message: e.message }, { status: 500 });
+    return Response.json({ status: "fail", message: e.message }, { status: 500 });
   }
 }

@@ -1,5 +1,4 @@
 import prisma from '@/lib/prisma';
-import { NextResponse } from 'next/server';
 
 // Fonction pour récupérer une recette par ID
 export async function GET(req, { params }) {
@@ -13,14 +12,14 @@ export async function GET(req, { params }) {
 
     if (!recipe) {
       console.log(`Recipe not found for ID: ${id}`);
-      return NextResponse.json({ status: 'fail', message: 'Recette non trouvée' }, { status: 404 });
+      return Response.json({ status: 'fail', message: 'Recette non trouvée' }, { status: 404 });
     }
 
     console.log(`Recipe found:`, recipe);
-    return NextResponse.json(recipe);
+    return Response.json(recipe);
   } catch (error) {
     console.error(`Error fetching recipe: ${error.message}`);
-    return NextResponse.json({ status: 'fail', message: error.message }, { status: 500 });
+    return Response.json({ status: 'fail', message: error.message }, { status: 500 });
   }
 }
 
@@ -32,7 +31,7 @@ export async function PUT(req, { params }) {
   try {
     const recipe = await prisma.recipe.findUnique({ where: { id: Number(id) } });
     if (!recipe) {
-      return NextResponse.json({ status: 'fail', message: 'Recette non trouvée' }, { status: 404 });
+      return Response.json({ status: 'fail', message: 'Recette non trouvée' }, { status: 404 });
     }
 
     const updatedRecipe = await prisma.recipe.update({
@@ -47,10 +46,10 @@ export async function PUT(req, { params }) {
       },
     });
 
-    return NextResponse.json(updatedRecipe, { status: 200 });
+    return Response.json(updatedRecipe, { status: 200 });
   } catch (error) {
     console.error(`Error updating recipe: ${error.message}`);
-    return NextResponse.json({ status: 'fail', message: error.message }, { status: 500 });
+    return Response.json({ status: 'fail', message: error.message }, { status: 500 });
   }
 }
 
@@ -62,9 +61,9 @@ export async function DELETE(req, { params }) {
     const deletedRecipe = await prisma.recipe.delete({
       where: { id: Number(id) },
     });
-    return NextResponse.json(deletedRecipe, { status: 200 });
+    return Response.json(deletedRecipe, { status: 200 });
   } catch (error) {
     console.error(`Error deleting recipe: ${error.message}`);
-    return NextResponse.json({ status: 'fail', message: error.message }, { status: 500 });
+    return Response.json({ status: 'fail', message: error.message }, { status: 500 });
   }
 }

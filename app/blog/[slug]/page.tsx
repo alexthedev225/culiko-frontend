@@ -19,8 +19,9 @@ interface BlogDetailProps {
   };
 }
 
-const fetchPost = async (slug: string): Promise<Post> => {
-  const res = await fetch(`https://culiko.vercel.app/api/recipes/${slug}`);
+const fetchPost = async (slug: string ): Promise<Post> => {
+  const baseUrl = `${process.env.API_VERCEL_URL}/api`;
+  const res = await fetch(`${baseUrl}/recipes/${slug}`);
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }

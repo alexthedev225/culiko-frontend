@@ -1,8 +1,4 @@
-"use client";
-
 import React from 'react';
-import { useQuery } from 'react-query';
-import axios from 'axios';
 import BlogPost from '../components/BlogPost';
 
 interface Recipe {
@@ -15,28 +11,25 @@ interface Recipe {
   diet?: string;
 }
 
-const fetchRecipes = async (): Promise<Recipe[]> => {
-  const response = await axios.get('https://culiko.vercel.app/api/recipes');
-  return response.data;
+const fetchPosts = async (): Promise<Recipe[]> => {
+  const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api`;
+  const res = await fetch(`${baseUrl}/recipes`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+  return res.json();
 };
 
-const Blog: React.FC = () => {
-  const { data: recipes, error, isLoading } = useQuery<Recipe[], Error>('recipes', fetchRecipes);
-
+const Blog: React.FC = async () => {
+  const recipes = await fetchPosts();
   const categories = ["Petit déjeuner", "Dessert", "Plats principaux", "Entrée"];
   const defaultImageUrl = '/defaultFood.jpg'; // URL de l'image par défaut
-
-  if (isLoading) return <p>Chargement en cours...</p>;
-  if (error) return <p>Erreur lors du chargement des données: {error.message}</p>;
-
-  // Vérification pour éviter l'erreur si recipes est undefined
-  if (!recipes) return <p>Aucune recette trouvée.</p>;
 
   return (
     <div className="py-12 bg-gray-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-5xl font-bold text-center mb-8 playfair-display">Blog</h2>
-        
+
         {/* Affichage des recettes par catégorie */}
         {categories.map((category, index) => (
           <div key={index}>
@@ -44,15 +37,15 @@ const Blog: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               {recipes
                 .filter((recipe) => recipe.category === category)
-                .map((recipe, index) => (
+                .map((recipe) => (
                   <BlogPost
-                    key={index}
+                    key={recipe.id}
                     title={recipe.title}
                     image={recipe.imagePath || defaultImageUrl}
                     calories={recipe.calories}
                     diet={recipe.diet}
                     excerpt={recipe.excerpt}
-                    slug={recipe.id} // Utilisez le titre ou un identifiant unique
+                    slug={recipe.id} // Utilisez l'ID comme slug
                   />
                 ))}
             </div>
