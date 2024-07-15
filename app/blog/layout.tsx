@@ -1,8 +1,4 @@
-"use client";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactNode } from "react";
-
-const queryClient = new QueryClient();
 
 interface LayoutProps {
   children: ReactNode; // Typage des enfants
@@ -11,11 +7,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
-      <QueryClientProvider client={queryClient}>
-        <main>
-          {children}
-        </main>
-      </QueryClientProvider>
+      <main>{children}</main>
     </div>
   );
 };
