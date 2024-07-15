@@ -52,8 +52,8 @@ const Header = () => {
             </li>
             <li>
               <Link
-                href="a-propos"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/a-propos' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
+                href="about"
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/about' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
               >
                 À Propos
               </Link>
@@ -83,8 +83,8 @@ const Header = () => {
             </li>
             <li>
               <Link
-                href="a-propos"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/a-propos' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
+                href="about"
+                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/about' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
               >
                 À Propos
               </Link>
