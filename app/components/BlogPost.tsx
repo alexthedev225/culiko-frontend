@@ -14,7 +14,7 @@ interface BlogPostProps {
 const BlogPost: React.FC<BlogPostProps> = ({ title, image, excerpt, calories, slug, diet }) => {
   return (
     <div className="bg-white overflow-hidden shadow rounded-lg">
-      <Link href={`/blog/${slug}`}>
+      <Link href={`/recette/${slug}`}>
         <div className="block">
           {/* Image avec taille fixe */}
           <div className="relative overflow-hidden rounded-t-lg h-48"> {/* Ajustez la hauteur ici */}
@@ -32,7 +32,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, image, excerpt, calories, sl
 
           {/* Contenu textuel */}
           <div className="px-4 py-4">
-            <h3 className="text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+            <h3 className="text-xl font-semibold text-gray-800 hover:text-pink-600 transition-colors duration-300">
               {title} {calories !== undefined ? `(${calories} calories)` : ''} {diet ? `(${diet})` : ''}
             </h3>
             <p className="text-gray-600 mt-2 line-clamp-3">{excerpt}</p>

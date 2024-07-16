@@ -3,15 +3,15 @@ import Image from "next/image";
 
 const About: React.FC = () => {
   return (
-    <section className="py-12 bg-gradient-to-b from-white to-gray-100">
+    <section className="py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-5xl font-bold text-center mb-12 playfair-display text-gray-900">
+        <h1 className="text-5xl font-bold text-center mb-12 playfair-display text-pink-500">
           À propos de nous
         </h1>
 
         {/* Mission */}
         <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
             Notre Mission
           </h2>
           <p className="text-gray-800 text-lg leading-relaxed">
@@ -25,11 +25,11 @@ const About: React.FC = () => {
 
         {/* Vision */}
         <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
             Notre Vision
           </h2>
           <p className="text-gray-800 text-lg leading-relaxed">
-            Nous aspirons à devenir la première plateforme de partage de
+            Nous aspirons à devenir la meilleure plateforme de partage de
             recettes en ligne, en offrant une expérience utilisateur
             exceptionnelle et un contenu culinaire inspirant pour les cuisiniers
             de tous niveaux.
@@ -38,7 +38,7 @@ const About: React.FC = () => {
 
         {/* Équipe */}
         <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-8">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-8 playfair-display">
             Notre Équipe
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -51,7 +51,7 @@ const About: React.FC = () => {
                 className="shadow-lg mr-6 image"
               />
               <div>
-                <h3 className="text-2xl font-semibold text-gray-900">
+                <h3 className="text-2xl font-semibold text-gray-900 ">
                   Alex Konan
                 </h3>
                 <p className="text-gray-700">
@@ -88,7 +88,7 @@ const About: React.FC = () => {
 
         {/* Valeurs */}
         <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
             Nos Valeurs
           </h2>
           <ul className="list-disc list-inside text-gray-800 space-y-2">
@@ -117,7 +117,7 @@ const About: React.FC = () => {
 
         {/* Contact */}
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
             Nous Contacter
           </h2>
           <p className="text-gray-800 text-lg leading-relaxed mb-4">
@@ -127,7 +127,7 @@ const About: React.FC = () => {
           </p>
           <a
             href="/contact"
-            className="inline-block px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="inline-block px-6 py-3 bg-pink-500 text-white rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
           >
             Formulaire de Contact
           </a>

@@ -37,23 +37,23 @@ const Header = () => {
             <li>
               <Link
                 href="/"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
+                className={`block py-2 px-3 rounded hover:bg-pink-400 hover:text-pink-500 ${pathname === '/' ? 'text-pink-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-pink-500 md:dark:hover:text-pink-500 dark:hover:bg-gray-700`}
               >
                 Accueil
               </Link>
             </li>
             <li>
               <Link
-                href="/blog"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/blog' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
+                href="/recette"
+                className={`block py-2 px-3 rounded hover:bg-pink-400 hover:text-pink-500 ${pathname === '/recette' ? 'text-pink-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-pink-500 md:dark:hover:text-pink-500 dark:hover:bg-gray-700`}
               >
-                Blog
+                Recette
               </Link>
             </li>
             <li>
               <Link
-                href="about"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-blue-500 ${pathname === '/about' ? 'text-blue-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700`}
+                href="/about"
+                className={`block py-2 px-3 rounded hover:bg-pink-400 hover:text-pink-500 ${pathname === '/about' ? 'text-pink-500' : 'text-gray-900'} md:hover:bg-transparent md:p-0 dark:text-pink-500 md:dark:hover:text-pink-500 dark:hover:bg-gray-700`}
               >
                 À Propos
               </Link>
@@ -68,23 +68,23 @@ const Header = () => {
             <li>
               <Link
                 href="/"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded hover:bg-pink-400 hover:text-white ${pathname === '/' ? 'text-white bg-pink-400' : 'text-gray-900'}`}
               >
                 Accueil
               </Link>
             </li>
             <li>
               <Link
-                href="/blog"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/blog' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
+                href="/recette"
+                className={`block py-2 px-3 rounded hover:bg-pink-400 hover:text-white ${pathname === '/recette' ? 'text-white bg-pink-400' : 'text-gray-900'}`}
               >
-                Blog
+                Recette
               </Link>
             </li>
             <li>
               <Link
-                href="about"
-                className={`block py-2 px-3 rounded hover:bg-blue-400 hover:text-white ${pathname === '/about' ? 'text-white bg-blue-400' : 'text-gray-900'}`}
+                href="/about"
+                className={`block py-2 px-3 rounded hover:bg-pink-400 hover:text-white ${pathname === '/about' ? 'text-white bg-pink-400' : 'text-gray-900'}`}
               >
                 À Propos
               </Link>

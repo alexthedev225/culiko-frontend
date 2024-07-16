@@ -5,8 +5,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white text-black border-t-2">
-      <section className="py-12 bg-white">
+    <footer className="bg-gradient-to-br from-white to-pink-50 text-black ">
+      <section className="py-12 ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4 playfair-display">Abonnez-vous à notre Newsletter</h2>
@@ -17,11 +17,11 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Entrez votre adresse email"
-                className="w-full max-w-xs px-4 py-3 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 border"
+                className="w-full max-w-xs px-4 py-3 rounded-l-md focus:outline-none focus:ring-2 focus:ring-pink-500 border"
               />
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-r-md transition duration-300"
+                className="bg-pink-500 hover:bg-pink-600 text-white py-3 px-6 rounded-r-md transition duration-300"
               >
                 S&apos;abonner
               </button>

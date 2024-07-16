@@ -2,10 +2,12 @@ import fs from 'fs';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
 import prisma from '@/lib/prisma';
+import { verifyToken, isAdmin } from '@/middleware/verifyToken';
 
 const pump = promisify(pipeline);
 
 export async function POST(req) {
+
   try {
     const formData = await req.formData();
     const title = formData.get('title');
@@ -56,11 +58,16 @@ export async function GET() {
 }
 
 export async function PUT(req) {
+  const user = await verifyToken(req);
+  if (!user || !await isAdmin(user)) {
+    return Response.json({ status: "fail", message: "Unauthorized" }, { status: 403 });
+  }
+
   const { id } = req.query;
   const formData = await req.formData();
 
   try {
-    const recipe = await prisma.recipe.findUnique({ where: { id: Number(id) } });
+    const recipe = await prisma.recipe.findUnique({ where: { id: String(id) } });
     if (!recipe) {
       return Response.json({ status: "fail", message: "Recette non trouvée" }, { status: 404 });
     }
@@ -84,7 +91,7 @@ export async function PUT(req) {
     }
 
     const updatedRecipe = await prisma.recipe.update({
-      where: { id: Number(id) },
+      where: { id: String(id) },
       data: {
         title,
         excerpt,
@@ -105,11 +112,16 @@ export async function PUT(req) {
 }
 
 export async function DELETE(req) {
+  const user = await verifyToken(req);
+  if (!user || !await isAdmin(user)) {
+    return Response.json({ status: "fail", message: "Unauthorized" }, { status: 403 });
+  }
+
   const { id } = req.query;
 
   try {
     const deletedRecipe = await prisma.recipe.delete({
-      where: { id: Number(id) },
+      where: { id: String(id) },
     });
     return Response.json(deletedRecipe, { status: 200 });
   } catch (e) {
