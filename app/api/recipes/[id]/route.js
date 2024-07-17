@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { verifyToken, isAdmin } from '@/middleware/verifyToken'; // Importez le middleware
+import { verifyToken} from '@/middleware/verifyToken'; // Importez le middleware
 
 // Fonction pour récupérer une recette par ID (accessible sans autorisation)
 export async function GET(req, { params }) {
@@ -31,7 +31,7 @@ export async function PUT(req, { params }) {
 
   try {
     const user = await verifyToken(req);
-    if (!user || !await isAdmin(user)) {
+    if (!user) {
       return Response.json({ status: 'fail', message: 'Unauthorized' }, { status: 403 });
     }
 
@@ -65,7 +65,7 @@ export async function DELETE(req, { params }) {
 
   try {
     const user = await verifyToken(req);
-    if (!user || !await isAdmin(user)) {
+    if (!user) {
       return Response.json({ status: 'fail', message: 'Unauthorized' }, { status: 403 });
     }
 

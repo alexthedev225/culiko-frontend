@@ -2,7 +2,7 @@ import fs from 'fs';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
 import prisma from '@/lib/prisma';
-import { verifyToken, isAdmin } from '@/middleware/verifyToken';
+import { verifyToken} from '@/middleware/verifyToken';
 
 const pump = promisify(pipeline);
 
@@ -59,7 +59,7 @@ export async function GET() {
 
 export async function PUT(req) {
   const user = await verifyToken(req);
-  if (!user || !await isAdmin(user)) {
+  if (!user) {
     return Response.json({ status: "fail", message: "Unauthorized" }, { status: 403 });
   }
 
@@ -113,7 +113,7 @@ export async function PUT(req) {
 
 export async function DELETE(req) {
   const user = await verifyToken(req);
-  if (!user || !await isAdmin(user)) {
+  if (!user) {
     return Response.json({ status: "fail", message: "Unauthorized" }, { status: 403 });
   }
 
