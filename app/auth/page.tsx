@@ -12,7 +12,7 @@ const LoginForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    const baseUrl = `${process.env.API_VERCEL_URL}/api`
+    const baseUrl = `${process.env.NEXT_PUBLIC_API_VERCEL_URL}/api`
     const response = await fetch(`${baseUrl}/auth/login`, {
       method: 'POST',
       headers: {
