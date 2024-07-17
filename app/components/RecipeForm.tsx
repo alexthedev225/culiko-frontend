@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import axios from "axios";
-
-import Cookies from "js-cookie";
+import { cookies } from 'next/headers'
 
 interface Recipe {
   title: string;
@@ -24,11 +23,12 @@ const RecipeForm: React.FC<{ existingRecipe?: Recipe }> = ({
   existingRecipe,
 }) => {
   const { data: session } = useSession();
-
-  const token = Cookies.get("token");
+  const cookieStore = cookies()
+  const token = cookieStore.get('token')
+ 
   console.log(token);
   useEffect(() => {
-    const role = Cookies.get("role");
+    const role = cookieStore.get("role")?.value;
     setIsAdmin(role === "ADMIN");
   }, []);
   const [recipeData, setRecipeData] = useState<Recipe>(
