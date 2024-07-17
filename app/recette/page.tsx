@@ -12,7 +12,7 @@ interface Recipe {
 }
 
 const fetchPosts = async (): Promise<Recipe[]> => {
-  const baseUrl = `http://localhost:3000/api`;
+  const baseUrl = `${process.env.API_VERCEL_URL}/api`;
   const res = await fetch(`${baseUrl}/recipes`, { cache: 'no-store' });
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);

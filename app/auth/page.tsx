@@ -13,7 +13,7 @@ const LoginForm = () => {
     e.preventDefault();
     setError('');
 
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch(`${process.env.API_VERCEL_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

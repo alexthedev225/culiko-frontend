@@ -129,7 +129,7 @@ const RecipeForm: React.FC<{ existingRecipe?: Recipe }> = ({
     try {
       const response = existingRecipe
         ? await axios.put(
-            `http://localhost:3000/api/recipes/${existingRecipe.title}`,
+            `${process.env.API_VERCEL_URL}/api/recipes/${existingRecipe.title}`,
             formData,
             {
               headers: {
@@ -138,7 +138,7 @@ const RecipeForm: React.FC<{ existingRecipe?: Recipe }> = ({
               },
             }
           )
-        : await axios.post(`http://localhost:3000/api/recipes`, formData, {
+        : await axios.post(`${process.env.API_VERCEL_URL}/api/recipes`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${token}`,
@@ -177,7 +177,7 @@ const RecipeForm: React.FC<{ existingRecipe?: Recipe }> = ({
 
     try {
       await axios.delete(
-        `http://localhost:3000/api/recipes/${existingRecipe?.title}`,
+        `${process.env.API_VERCEL_URL}/api/recipes/${existingRecipe?.title}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

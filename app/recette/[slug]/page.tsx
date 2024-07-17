@@ -20,7 +20,7 @@ interface BlogDetailProps {
 }
 
 const fetchPost = async (slug: string): Promise<Post> => {
-  const res = await fetch(`http://localhost:3000/api/recipes/${slug}`);
+  const res = await fetch(`${process.env.API_VERCEL_URL}/api/recipes/${slug}`);
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
