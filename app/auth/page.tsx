@@ -1,14 +1,15 @@
-"use client"
-import { useState } from 'react';
+"use client";
+
+import { useState, ChangeEvent, FormEvent } from 'react';
 import Cookies from 'js-cookie';
-import Logout from '../components/Logout'
+import Logout from '../components/Logout';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
 
@@ -38,24 +39,23 @@ const LoginForm = () => {
 
   return (
     <>
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <p className="text-red-500">{error}</p>}
-      <input
-        type="text"
-        placeholder="Nom d'utilisateur"
-        onChange={(e) => setUsername(e.target.value)}
-        className="border p-2 w-full"
-      />
-      <input
-        type="password"
-        placeholder="Mot de passe"
-        onChange={(e) => setPassword(e.target.value)}
-        className="border p-2 w-full"
-      />
-      <button type="submit" className="bg-blue-500 text-white p-2">Se connecter</button>
-
-    </form>
-    <Logout />
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {error && <p className="text-red-500">{error}</p>}
+        <input
+          type="text"
+          placeholder="Nom d'utilisateur"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+          className="border p-2 w-full"
+        />
+        <input
+          type="password"
+          placeholder="Mot de passe"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+          className="border p-2 w-full"
+        />
+        <button type="submit" className="bg-blue-500 text-white p-2">Se connecter</button>
+      </form>
+      <Logout />
     </>
   );
 };
