@@ -12,8 +12,8 @@ const LoginForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-
-    const response = await fetch(`${process.env.API_VERCEL_URL}/api/auth/login`, {
+    const baseUrl = `${process.env.API_VERCEL_URL}/api`
+    const response = await fetch(`${baseUrl}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
