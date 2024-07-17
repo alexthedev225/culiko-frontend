@@ -13,7 +13,7 @@ const LoginForm = () => {
     e.preventDefault();
     setError('');
 
-    const response = await fetch(`${process.env.API_VERCEL_URL}/api/auth/login`, {
+    const response = await fetch(`/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,11 +28,10 @@ const LoginForm = () => {
       const data = await response.json();
 
       // Stockage des informations de l'utilisateur dans des cookies séparés
-      Cookies.set('token', data.token, { expires: 7 }); // Token
-      Cookies.set('username', data.user.username, { expires: 7 }); // Nom d'utilisateur
-      Cookies.set('role', data.user.role, { expires: 7 }); // Rôle de l'utilisateur
+      Cookies.set('token', data.token, { expires: 7, secure: true }); // Token
+      Cookies.set('username', data.user.username, { expires: 7, secure: true }); // Nom d'utilisateur
+      Cookies.set('role', data.user.role, { expires: 7, secure: true }); // Rôle de l'utilisateur
 
-      console.log('Connexion réussie', data);
       // Rediriger ou effectuer d'autres actions après la connexion
     }
   };
