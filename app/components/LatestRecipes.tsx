@@ -45,6 +45,7 @@ const LatestRecipesSection: React.FC = async () => {
                   alt={recipe.title}
                   layout="fill"
                   objectFit="cover"
+                  priority={true}
                 />
               </div>
               <div className="p-4 flex flex-col justify-between flex-grow">

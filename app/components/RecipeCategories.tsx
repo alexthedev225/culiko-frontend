@@ -15,6 +15,7 @@ const RecipeCategories = () => {
                 layout="fill"
                 objectFit="cover"
                 className=""
+                priority={true}
               />
             </div>
             <div className="p-4">
@@ -32,6 +33,7 @@ const RecipeCategories = () => {
                 layout="fill"
                 objectFit="cover"
                 className=""
+                priority={true}
               />
             </div>
             <div className="p-4">
@@ -49,6 +51,7 @@ const RecipeCategories = () => {
                 layout="fill"
                 objectFit="cover"
                 className=""
+                priority={true}
               />
             </div>
             <div className="p-4">
@@ -66,6 +69,7 @@ const RecipeCategories = () => {
                 layout="fill"
                 objectFit="cover"
                 className=""
+                priority={true}
               />
             </div>
             <div className="p-4">
