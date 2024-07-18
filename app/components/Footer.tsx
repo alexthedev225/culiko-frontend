@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -37,10 +38,10 @@ const Footer = () => {
           </div>
           <nav className="mt-4 md:mt-0">
             <ul className="flex space-x-4">
-              <li><a href="#" className="text-gray-700 hover:text-black">Accueil</a></li>
-              <li><a href="#" className="text-gray-700 hover:text-black">Blog</a></li>
-              <li><a href="#" className="text-gray-700 hover:text-black">À Propos</a></li>
-              <li><a href="#" className="text-gray-700 hover:text-black">Contact</a></li>
+              <li><Link href={"/"} className="text-gray-700 hover:text-black">Accueil</Link></li>
+              <li><Link href={"/recette"} className="text-gray-700 hover:text-black">Recette</Link></li>
+              <li><Link href={"/about"} className="text-gray-700 hover:text-black">À Propos</Link></li>
+              {/* <li><Link href={""} className="text-gray-700 hover:text-black">Contact</Link></li> */}
             </ul>
           </nav>
         </div>

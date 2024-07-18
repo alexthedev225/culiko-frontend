@@ -32,7 +32,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, image, excerpt, calories, sl
 
           {/* Contenu textuel */}
           <div className="px-4 py-4">
-            <h3 className="text-xl font-semibold text-gray-800 hover:text-pink-600 transition-colors duration-300">
+            <h3 className="text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
               {title} {calories !== undefined ? `(${calories} calories)` : ''} {diet ? `(${diet})` : ''}
             </h3>
             <p className="text-gray-600 mt-2 line-clamp-3">{excerpt}</p>
