@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Clock, Users, ChefHat, Printer, Share2, Bookmark, Star } from 'lucide-react';
+import { Clock, Users, ChefHat, Printer, Share2, Bookmark, Star, ArrowLeft } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import BackButton from '@/components/BackButton';
 
 interface Post {
   id: string;
@@ -49,6 +50,20 @@ export default async function RecipePage({ params }: { params: { slug: string } 
   return (
     <main className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4">
+        <div className="mb-8 flex items-center justify-between">
+          <BackButton />
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm">
+              <Printer className="w-4 h-4 mr-2" />
+              Imprimer
+            </Button>
+            <Button variant="outline" size="sm">
+              <Share2 className="w-4 h-4 mr-2" />
+              Partager
+            </Button>
+          </div>
+        </div>
+
         {/* En-tête de la recette */}
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
