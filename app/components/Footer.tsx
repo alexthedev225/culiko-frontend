@@ -43,20 +43,37 @@ const Footer = () => {
               />
             </div>
             <p className="text-sm mb-4">
-              Culiko est votre destination culinaire pour découvrir et partager des recettes exceptionnelles.
-              Notre mission est de rendre la cuisine accessible et agréable pour tous.
+              Culiko est votre destination culinaire pour découvrir et partager
+              des recettes exceptionnelles. Notre mission est de rendre la
+              cuisine accessible et agréable pour tous.
             </p>
             <div className="flex space-x-4">
-              <Link href="https://facebook.com" target="_blank" className="hover:text-pink-500 transition-colors">
+              <Link
+                href="https://facebook.com"
+                target="_blank"
+                className="hover:text-pink-500 transition-colors"
+              >
                 <Facebook className="w-5 h-5" />
               </Link>
-              <Link href="https://twitter.com" target="_blank" className="hover:text-pink-500 transition-colors">
+              <Link
+                href="https://twitter.com"
+                target="_blank"
+                className="hover:text-pink-500 transition-colors"
+              >
                 <Twitter className="w-5 h-5" />
               </Link>
-              <Link href="https://instagram.com" target="_blank" className="hover:text-pink-500 transition-colors">
+              <Link
+                href="https://instagram.com"
+                target="_blank"
+                className="hover:text-pink-500 transition-colors"
+              >
                 <Instagram className="w-5 h-5" />
               </Link>
-              <Link href="https://youtube.com" target="_blank" className="hover:text-pink-500 transition-colors">
+              <Link
+                href="https://youtube.com"
+                target="_blank"
+                className="hover:text-pink-500 transition-colors"
+              >
                 <Youtube className="w-5 h-5" />
               </Link>
             </div>
@@ -67,27 +84,29 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Liens rapides</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/recette" className="hover:text-pink-500 transition-colors flex items-center">
+                <Link
+                  href="/recette"
+                  className="hover:text-pink-500 transition-colors flex items-center"
+                >
                   <ArrowRight className="w-4 h-4 mr-2" />
                   Recettes
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-pink-500 transition-colors flex items-center">
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                  À propos
+                <Link
+                  href="/about"
+                  className="hover:text-pink-500 transition-colors flex items-center"
+                >
+                  <ArrowRight className="w-4 h-4 mr-2" />À propos
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-pink-500 transition-colors flex items-center">
+                <Link
+                  href="/contact"
+                  className="hover:text-pink-500 transition-colors flex items-center"
+                >
                   <ArrowRight className="w-4 h-4 mr-2" />
                   Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-pink-500 transition-colors flex items-center">
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                  Blog
                 </Link>
               </li>
             </ul>
@@ -103,13 +122,20 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-pink-500" />
-                <a href="mailto:contact@culiko.com" className="hover:text-pink-500 transition-colors">
+                <a
+                  href="mailto:contact@culiko.com"
+                  className="hover:text-pink-500 transition-colors"
+                >
                   contact@culiko.com
                 </a>
               </li>
               <li className="flex items-start">
                 <MapPin className="w-4 h-4 mr-2 mt-1 text-pink-500" />
-                <span>123 Rue de la Cuisine<br />Abidjan, Côte d'Ivoire</span>
+                <span>
+                  123 Rue de la Cuisine
+                  <br />
+                  Abidjan, Côte d&apos;Ivoire
+                </span>
               </li>
             </ul>
           </div>
@@ -118,7 +144,8 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Newsletter</h3>
             <p className="text-sm mb-4">
-              Abonnez-vous à notre newsletter pour recevoir nos dernières recettes et actualités.
+              Abonnez-vous à notre newsletter pour recevoir nos dernières
+              recettes et actualités.
             </p>
             <form className="space-y-2" onSubmit={handleSubmit}>
               <Input
@@ -127,7 +154,7 @@ const Footer = () => {
                 className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
               />
               <Button className="w-full">
-                S'abonner
+                S&apos;abonner
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </form>
@@ -139,9 +166,9 @@ const Footer = () => {
         {/* Copyright */}
         <div className="text-center text-sm">
           <p className="flex items-center justify-center">
-            {currentYear} Culiko. Fait avec 
+            {currentYear} Culiko. Fait avec
             <Heart className="w-4 h-4 mx-1 text-pink-500" />
-            en Côte d'Ivoire
+            en Côte d&apos;Ivoire
           </p>
         </div>
       </div>

@@ -37,8 +37,8 @@ const faqItems = [
     answer: "Bientôt ! Nous travaillons sur une fonctionnalité qui permettra aux utilisateurs de partager leurs propres recettes."
   },
   {
-    question: "Les recettes sont-elles testées ?",
-    answer: "Oui, chaque recette est validée par notre équipe avant d'être publiée sur la plateforme."
+    question: "Les recettes sont-elles vérifiées ?",
+    answer: "Oui, chaque recette est validée par notre équipe avant d&apos;être publiée sur la plateforme."
   }
 ];
 

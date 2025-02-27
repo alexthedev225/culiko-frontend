@@ -28,7 +28,7 @@ const RecipePage = async () => {
   const defaultImageUrl = '/defaultFood.jpg';
 
   return (
-    <div className="py-12 container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-24 pb-16 container mx-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-5xl font-bold text-center mb-8 playfair-display text-pink-500">
         Recettes Culinaires
       </h1>

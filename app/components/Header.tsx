@@ -46,10 +46,11 @@ const Header = () => {
       href: "/about",
       description: "En savoir plus sur Culiko"
     },
+    
     {
-      title: "Blog",
-      href: "/blog",
-      description: "Articles, conseils et actualités"
+      title: "Contact",
+      href: "/contact",
+      description: "Nous contacter"
     }
   ];
 
