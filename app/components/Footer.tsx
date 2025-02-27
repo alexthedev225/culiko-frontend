@@ -1,56 +1,152 @@
-import React from 'react';
-import Image from 'next/image';
+'use client';
+
 import Link from 'next/link';
+import Image from 'next/image';
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+  ArrowRight,
+  Heart
+} from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Implémenter la logique d'inscription à la newsletter
+    console.log('Newsletter subscription submitted');
+  };
+
   return (
-    <footer className="bg-gradient-to-br from-white to-pink-50 text-black ">
-      <section className="py-12 ">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4 playfair-display">Abonnez-vous à notre Newsletter</h2>
-            <p className="text-lg text-gray-700 mb-8">
-              Recevez les dernières recettes, articles et actualités directement dans votre boîte mail.
-            </p>
-            <form className="flex items-center justify-center">
-              <input
-                type="email"
-                placeholder="Entrez votre adresse email"
-                className="w-full max-w-xs px-4 py-3 rounded-l-md focus:outline-none focus:ring-2 focus:ring-pink-500 border"
+    <footer className="bg-gray-900 text-gray-300">
+      <div className="container mx-auto px-4 py-12">
+        {/* Section principale */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {/* À propos */}
+          <div>
+            <div className="mb-4">
+              <Image
+                src="/logo.png"
+                alt="Culiko Logo"
+                width={120}
+                height={40}
+                className="brightness-0 invert"
               />
-              <button
-                type="submit"
-                className="bg-pink-500 hover:bg-pink-600 text-white py-3 px-6 rounded-r-md transition duration-300"
-              >
-                S&apos;abonner
-              </button>
+            </div>
+            <p className="text-sm mb-4">
+              Culiko est votre destination culinaire pour découvrir et partager des recettes exceptionnelles.
+              Notre mission est de rendre la cuisine accessible et agréable pour tous.
+            </p>
+            <div className="flex space-x-4">
+              <Link href="https://facebook.com" target="_blank" className="hover:text-pink-500 transition-colors">
+                <Facebook className="w-5 h-5" />
+              </Link>
+              <Link href="https://twitter.com" target="_blank" className="hover:text-pink-500 transition-colors">
+                <Twitter className="w-5 h-5" />
+              </Link>
+              <Link href="https://instagram.com" target="_blank" className="hover:text-pink-500 transition-colors">
+                <Instagram className="w-5 h-5" />
+              </Link>
+              <Link href="https://youtube.com" target="_blank" className="hover:text-pink-500 transition-colors">
+                <Youtube className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Liens rapides */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Liens rapides</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/recette" className="hover:text-pink-500 transition-colors flex items-center">
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  Recettes
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-pink-500 transition-colors flex items-center">
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  À propos
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-pink-500 transition-colors flex items-center">
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-pink-500 transition-colors flex items-center">
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Contact</h3>
+            <ul className="space-y-3">
+              <li className="flex items-center">
+                <Phone className="w-4 h-4 mr-2 text-pink-500" />
+                <span>+225 0123456789</span>
+              </li>
+              <li className="flex items-center">
+                <Mail className="w-4 h-4 mr-2 text-pink-500" />
+                <a href="mailto:contact@culiko.com" className="hover:text-pink-500 transition-colors">
+                  contact@culiko.com
+                </a>
+              </li>
+              <li className="flex items-start">
+                <MapPin className="w-4 h-4 mr-2 mt-1 text-pink-500" />
+                <span>123 Rue de la Cuisine<br />Abidjan, Côte d'Ivoire</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Newsletter</h3>
+            <p className="text-sm mb-4">
+              Abonnez-vous à notre newsletter pour recevoir nos dernières recettes et actualités.
+            </p>
+            <form className="space-y-2" onSubmit={handleSubmit}>
+              <Input
+                type="email"
+                placeholder="Votre email"
+                className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
+              />
+              <Button className="w-full">
+                S'abonner
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
             </form>
           </div>
         </div>
-      </section>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="flex-shrink-0">
-            <Image src="/logo.png" alt="Logo" height={50} width={120} />
-          </div>
-          <nav className="mt-4 md:mt-0">
-            <ul className="flex space-x-4">
-              <li><Link href={"/"} className="text-gray-700 hover:text-black">Accueil</Link></li>
-              <li><Link href={"/recette"} className="text-gray-700 hover:text-black">Recette</Link></li>
-              <li><Link href={"/about"} className="text-gray-700 hover:text-black">À Propos</Link></li>
-              {/* <li><Link href={""} className="text-gray-700 hover:text-black">Contact</Link></li> */}
-            </ul>
-          </nav>
-        </div>
-        <div className="mt-4 md:mt-2 text-center text-gray-600">
-          <p>&copy; {currentYear} Culiko. Tous droits réservés.</p>
+        <Separator className="bg-gray-800 my-8" />
+
+        {/* Copyright */}
+        <div className="text-center text-sm">
+          <p className="flex items-center justify-center">
+            {currentYear} Culiko. Fait avec 
+            <Heart className="w-4 h-4 mx-1 text-pink-500" />
+            en Côte d'Ivoire
+          </p>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

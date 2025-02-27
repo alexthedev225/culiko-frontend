@@ -1,139 +1,178 @@
+'use client';
+
 import React from "react";
 import Image from "next/image";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { ChefHat, Heart, Users, Utensils, Star, Coffee } from "lucide-react";
+
+const features = [
+  {
+    icon: <ChefHat className="w-6 h-6" />,
+    title: "Recettes de Qualité",
+    description: "Des recettes soigneusement sélectionnées et testées pour votre satisfaction"
+  },
+  {
+    icon: <Heart className="w-6 h-6" />,
+    title: "Fait avec Amour",
+    description: "Chaque recette est créée avec passion et attention aux détails"
+  },
+  {
+    icon: <Users className="w-6 h-6" />,
+    title: "Communauté Active",
+    description: "Rejoignez une communauté passionnée de cuisine"
+  }
+];
+
+const faqItems = [
+  {
+    question: "Comment sont créées les recettes ?",
+    answer: "Nos recettes sont générées par une intelligence artificielle avancée, puis vérifiées et ajustées par notre équipe pour garantir leur qualité et leur faisabilité."
+  },
+  {
+    question: "Puis-je proposer mes propres recettes ?",
+    answer: "Bientôt ! Nous travaillons sur une fonctionnalité qui permettra aux utilisateurs de partager leurs propres recettes."
+  },
+  {
+    question: "Les recettes sont-elles testées ?",
+    answer: "Oui, chaque recette est validée par notre équipe avant d'être publiée sur la plateforme."
+  }
+];
+
+const teamMembers = [
+  {
+    name: "Alex Konan",
+    role: "Fondateur & Développeur",
+    image: "/alex-avatar.jpeg",
+    skills: ["Next.js", "React", "UI/UX"],
+    description: "Passionné par le développement web et la cuisine, Alex a créé Culiko pour partager sa passion avec le monde entier."
+  }
+];
 
 const About: React.FC = () => {
   return (
-    <section className="py-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-5xl font-bold text-center mb-12 playfair-display text-pink-500">
-          À propos de nous
-        </h1>
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
+      <section className="py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* En-tête */}
+          <div className="text-center mb-16">
+            <h1 className="text-5xl font-bold mb-6 playfair-display text-pink-500">
+              À propos de Culiko
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Découvrez l&apos;histoire derrière votre nouvelle plateforme de recettes préférée
+            </p>
+          </div>
 
-        {/* Mission */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
-            Notre Mission
-          </h2>
-          <p className="text-gray-800 text-lg leading-relaxed">
-            Chez Culiko, notre mission est de vous fournir des recettes de
-            qualité, simples et délicieuses, pour que chaque repas soit une
-            aventure culinaire inoubliable. Nous croyons en l&apos;importance de
-            cuisiner avec des ingrédients frais et de partager des moments
-            précieux autour de la table.
-          </p>
-        </div>
+          {/* Caractéristiques */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {features.map((feature, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center space-x-4">
+                    <div className="p-2 bg-pink-100 rounded-lg text-pink-500">
+                      {feature.icon}
+                    </div>
+                    <CardTitle>{feature.title}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-        {/* Vision */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
-            Notre Vision
-          </h2>
-          <p className="text-gray-800 text-lg leading-relaxed">
-            Nous aspirons à devenir la meilleure plateforme de partage de
-            recettes en ligne, en offrant une expérience utilisateur
-            exceptionnelle et un contenu culinaire inspirant pour les cuisiniers
-            de tous niveaux.
-          </p>
-        </div>
-
-        {/* Équipe */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-8 playfair-display">
-            Notre Équipe
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex ">
-              <img
-                src="/alex-avatar.jpeg"
-                alt="Alex Konan"
-                width={150}
-                height={150}
-                className="shadow-lg mr-6 image"
-              />
-              <div>
-                <h3 className="text-2xl font-semibold text-gray-900 ">
-                  Alex Konan
-                </h3>
-                <p className="text-gray-700">
-                  Fondateur & Développeur FullStack
-                </p>
-                <p className="text-gray-600 mt-2">
-                  Passionné de cuisine et de technologie, Alex a créé Culiko
-                  pour partager des recettes savoureuses et accessibles à tous.
-                </p>
+          {/* Mission et Vision */}
+          <Card className="mb-16">
+            <CardContent className="p-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h2 className="text-3xl font-semibold mb-4 playfair-display text-gray-900">
+                    Notre Mission
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed">
+                    Chez Culiko, notre mission est de vous fournir des recettes de
+                    qualité, simples et délicieuses, pour que chaque repas soit une
+                    aventure culinaire inoubliable. Nous croyons en l&apos;importance de
+                    cuisiner avec des ingrédients frais et de partager des moments
+                    précieux autour de la table.
+                  </p>
+                </div>
+                <div>
+                  <h2 className="text-3xl font-semibold mb-4 playfair-display text-gray-900">
+                    Notre Vision
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed">
+                    Nous aspirons à devenir la meilleure plateforme de partage de
+                    recettes en ligne, en offrant une expérience utilisateur
+                    exceptionnelle et un contenu culinaire inspirant pour les cuisiniers
+                    de tous niveaux.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex ">
-            <img
-                src="/ai.jpg"
-                alt="Alex Konan"
-                width={150}
-                height={150}
-                className="shadow-lg mr-6 image"
-              />
-              <div>
-                <h3 className="text-2xl font-semibold text-gray-900">
-                  Assistant IA
-                </h3>
-                <p className="text-gray-700">Soutien Virtuel</p>
-                <p className="text-gray-600 mt-2">
-                  En tant qu&apos;assistant IA, je collabore avec Alex pour
-                  fournir un contenu de qualité et aider les utilisateurs à
-                  explorer des recettes innovantes.
-                </p>
-              </div>
+            </CardContent>
+          </Card>
+
+          {/* Équipe */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-semibold text-center mb-8 playfair-display text-gray-900">
+              Notre Équipe
+            </h2>
+            <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto">
+              {teamMembers.map((member, index) => (
+                <HoverCard key={index}>
+                  <HoverCardTrigger>
+                    <Card className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex items-center space-x-6">
+                          <Avatar className="w-24 h-24">
+                            <AvatarImage src={member.image} alt={member.name} />
+                            <AvatarFallback>{member.name[0]}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h3 className="text-xl font-semibold">{member.name}</h3>
+                            <p className="text-gray-600">{member.role}</p>
+                            <div className="flex gap-2 mt-2">
+                              {member.skills.map((skill, i) => (
+                                <Badge key={i} variant="secondary">
+                                  {skill}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-80">
+                    <p className="text-sm text-gray-600">{member.description}</p>
+                  </HoverCardContent>
+                </HoverCard>
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* Valeurs */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
-            Nos Valeurs
-          </h2>
-          <ul className="list-disc list-inside text-gray-800 space-y-2">
-            <li className="transition-colors duration-200 hover:text-gray-900">
-              <span className="font-semibold">Qualité :</span> Nous nous
-              engageons à vous fournir les meilleures recettes avec des
-              ingrédients de qualité.
-            </li>
-            <li className="transition-colors duration-200 hover:text-gray-900">
-              <span className="font-semibold">Innovation :</span> Nous aimons
-              expérimenter et proposer de nouvelles recettes pour ravir vos
-              papilles.
-            </li>
-            <li className="transition-colors duration-200 hover:text-gray-900">
-              <span className="font-semibold">Partage :</span> Nous croyons en
-              la puissance du partage de connaissances et d&apos;expériences
-              culinaires.
-            </li>
-            <li className="transition-colors duration-200 hover:text-gray-900">
-              <span className="font-semibold">Communauté :</span> Nous
-              valorisons notre communauté de passionnés de cuisine et nous nous
-              efforçons de créer un environnement accueillant et inspirant.
-            </li>
-          </ul>
+          {/* FAQ */}
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-semibold text-center mb-8 playfair-display text-gray-900">
+              Questions Fréquentes
+            </h2>
+            <Accordion type="single" collapsible>
+              {faqItems.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger>{item.question}</AccordionTrigger>
+                  <AccordionContent>{item.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
-
-        {/* Contact */}
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4 playfair-display">
-            Nous Contacter
-          </h2>
-          <p className="text-gray-800 text-lg leading-relaxed mb-4">
-            Si vous avez des questions, des suggestions ou si vous souhaitez
-            simplement partager une recette, n&apos;hésitez pas à nous contacter
-            via notre formulaire de contact.
-          </p>
-          <a
-            href="/contact"
-            className="inline-block px-6 py-3 bg-pink-500 text-white rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          >
-            Formulaire de Contact
-          </a>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
