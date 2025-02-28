@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/middleware/verifyToken'; // Vérification du token
 
-export async function GET(req) {
+export async function GET(req: Request) {
   try {
     const user = verifyToken(req); // Vérifier le token via middleware
 
@@ -21,9 +21,9 @@ export async function GET(req) {
       },
     });
 
-    return NextResponse.json(users);
+    return NextResponse.json(users, { status: 200 });
   } catch (error) {
-    console.error('Erreur lors de la récupération des utilisateurs:', error);
-    return NextResponse.json({ error: 'Erreur lors de la récupération des utilisateurs' }, { status: 500 });
+    console.error('Erreur lors de la récupération des utilisateurs :', error);
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
