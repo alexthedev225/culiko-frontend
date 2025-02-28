@@ -54,7 +54,7 @@ const teamMembers = [
 
 const About: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
+    <div className="pt-8 min-h-screen bg-gradient-to-b from-pink-50 to-white">
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* En-tête */}

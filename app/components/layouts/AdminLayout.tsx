@@ -10,6 +10,7 @@ import {
   ChatBubbleLeftIcon
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Image from 'next/image';
 import { usePathname } from "next/navigation";
 
 interface AdminLayoutProps {
@@ -70,10 +71,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 </svg>
               </button>
               <div className="flex items-center gap-3">
-                <img
+                <Image
                   className="w-8 h-8 rounded-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt="Admin"
+                  width={32}
+                  height={32}
                 />
                 <span className="text-sm font-medium text-gray-700">Admin</span>
               </div>

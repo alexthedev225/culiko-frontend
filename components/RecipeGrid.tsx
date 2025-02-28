@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -129,10 +130,12 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, categories, defaultIma
                   >
                     <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col relative">
                       <div className="aspect-video relative overflow-hidden">
-                        <img
+                        <Image
                           src={recipe.imagePath || defaultImageUrl}
                           alt={recipe.title}
                           className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         <div className="absolute bottom-3 right-3">
                           <Badge 
