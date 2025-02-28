@@ -48,19 +48,44 @@ const fetchRecipes = async (): Promise<Recipe[]> => {
 };
 
 const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('fr-FR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  }).format(date);
+  try {
+    // Si la date est invalide, retourner une date par défaut
+    const date = new Date(dateString);
+    
+    if (isNaN(date.getTime())) {
+      console.warn('Date invalide, utilisation de la date actuelle :', dateString);
+      return new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(new Date());
+    }
+
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(date);
+  } catch (error) {
+    console.error('Erreur de formatage de date :', error);
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date());
+  }
 };
 
 const LatestRecipesSection: React.FC = async () => {
   const data = await fetchRecipes();
-  const sortedRecipes = data.sort((a, b) => 
-    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  
+  // Trier les recettes, en utilisant la date actuelle si invalide
+  const sortedRecipes = data.sort((a, b) => {
+    const dateA = new Date(a.createdAt || Date.now());
+    const dateB = new Date(b.createdAt || Date.now());
+    return dateB.getTime() - dateA.getTime();
+  });
+  
   const selectedRecipes = sortedRecipes.slice(0, 3);
 
   return (
