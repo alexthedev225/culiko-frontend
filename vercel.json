@@ -1,0 +1,10 @@
+{
+  "buildCommand": "pnpm install && pnpm build",
+  "installCommand": "pnpm install",
+  "devCommand": "pnpm dev",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "env": {
+    "PNPM_FLAGS": "--registry https://registry.npmjs.cf/"
+  }
+}
