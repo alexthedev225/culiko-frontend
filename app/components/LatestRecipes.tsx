@@ -15,12 +15,36 @@ type Recipe = {
 };
 
 const fetchRecipes = async (): Promise<Recipe[]> => {
-  const baseUrl = `${process.env.NEXT_PUBLIC_API_VERCEL_URL}/api`;
-  const res = await fetch(`${baseUrl}/recipes`, { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  try {
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_VERCEL_URL ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      "http://localhost:3000";
+    console.log('URL de récupération des recettes :', `${baseUrl}/api/recipes`);
+    
+    const res = await fetch(`${baseUrl}/api/recipes`, { 
+      cache: "no-store",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    console.log('Statut de la réponse :', res.status);
+    
+    if (!res.ok) {
+      const errorData = await res.text();
+      console.error('Détails de l\'erreur :', errorData);
+      throw new Error(`Échec de la récupération des données : ${res.statusText}`);
+    }
+    
+    const recipes = await res.json();
+    console.log('Recettes récupérées :', recipes);
+    
+    return recipes;
+  } catch (error) {
+    console.error('Erreur de récupération des dernières recettes :', error);
+    throw error;
   }
-  return res.json();
 };
 
 const formatDate = (dateString: string) => {

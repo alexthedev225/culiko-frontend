@@ -1,7 +1,14 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,12 +22,38 @@ type Recipe = {
 };
 
 const fetchRecipes = async (): Promise<Recipe[]> => {
-  const baseUrl = `${process.env.NEXT_PUBLIC_API_VERCEL_URL}/api`;
-  const res = await fetch(`${baseUrl}/recipes`, { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  try {
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_VERCEL_URL ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      "http://localhost:3000";
+    console.log("URL de récupération des recettes :", `${baseUrl}/api/recipes`);
+
+    const res = await fetch(`${baseUrl}/api/recipes`, {
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("Statut de la réponse :", res.status);
+
+    if (!res.ok) {
+      const errorData = await res.text();
+      console.error("Détails de l'erreur :", errorData);
+      throw new Error(
+        `Échec de la récupération des données : ${res.statusText}`
+      );
+    }
+
+    const recipes = await res.json();
+    console.log("Recettes récupérées :", recipes);
+
+    return recipes;
+  } catch (error) {
+    console.error("Erreur de récupération des recettes populaires :", error);
+    throw error;
   }
-  return res.json();
 };
 
 const PopularRecipes: React.FC = async () => {
@@ -45,7 +78,10 @@ const PopularRecipes: React.FC = async () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {selectedRecipes.map((recipe) => (
-            <Card key={recipe.id} className="group hover:shadow-xl transition-all duration-300">
+            <Card
+              key={recipe.id}
+              className="group hover:shadow-xl transition-all duration-300"
+            >
               <div className="relative">
                 <AspectRatio ratio={16 / 9}>
                   <Image
