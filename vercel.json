@@ -3,19 +3,12 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/"
+      "use": "@vercel/next"
     }
   ],
   "env": {
     "SKIP_ENV_VALIDATION": "1"
   },
   "buildCommand": "pnpm install && pnpm prisma generate && pnpm build",
-  "installCommand": "pnpm install",
-  "devCommand": "pnpm dev"
+  "installCommand": "pnpm install"
 }
