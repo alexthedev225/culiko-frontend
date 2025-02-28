@@ -1,10 +1,21 @@
 {
-  "buildCommand": "npm install -g pnpm && pnpm install && pnpm dlx prisma generate && pnpm build",
-  "installCommand": "npm install -g pnpm && pnpm install",
-  "devCommand": "pnpm dev",
-  "framework": "nextjs",
-  "outputDirectory": ".next",
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ],
   "env": {
     "SKIP_ENV_VALIDATION": "1"
-  }
+  },
+  "buildCommand": "pnpm install && pnpm prisma generate && pnpm build",
+  "installCommand": "pnpm install",
+  "devCommand": "pnpm dev"
 }
