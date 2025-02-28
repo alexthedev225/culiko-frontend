@@ -52,20 +52,21 @@ const RecipeCategories = () => {
             Catégories de Recettes
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Parcourez nos recettes par catégorie et trouvez l'inspiration pour votre prochain repas
+            Parcourez nos recettes par catégorie et trouvez l&apos;inspiration
+            pour votre prochain repas
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category) => (
-            <Link 
-              key={category.name} 
+            <Link
+              key={category.name}
               href={`/recette?category=${category.slug}`}
               className="group"
             >
               <Card className="overflow-hidden h-full hover:shadow-xl transition-all duration-300">
                 <div className="relative">
-                  <AspectRatio ratio={4/3}>
+                  <AspectRatio ratio={4 / 3}>
                     <Image
                       src={category.image}
                       alt={category.name}
