@@ -12,13 +12,13 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../services/auth.service";
 
-interface AdminLayoutProps {
+export default function AdminLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
-
-const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+}) {
   const pathname = usePathname();
 
   const menuItems = [
@@ -26,7 +26,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     { name: "Dashboard", icon: ChartBarIcon, href: "/admin/dashboard" },
     { name: "Utilisateurs", icon: UserGroupIcon, href: "/admin/users" },
     { name: "Recettes", icon: BookOpenIcon, href: "/admin/recipes" },
-    { name: "Commentaires", icon: ChatBubbleLeftIcon, href: "/admin/comments" },
     { name: "Paramètres", icon: CogIcon, href: "/admin/settings" },
   ];
 
@@ -35,14 +34,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className=" min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg">
+    <div className="min-h-screen bg-gray-50 flex">
+      <aside className="fixed top-0 left-0 h-screen w-64 bg-white shadow-lg flex flex-col">
         <div className="p-6">
           <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
         </div>
-        <nav className="mt-6 flex flex-col h-[calc(100vh-100px)]">
-          <div className="flex-grow">
+        <nav className="flex-1 flex flex-col">
+          <div className="flex-1 overflow-y-auto">
             {menuItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -62,24 +60,23 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             })}
           </div>
 
-          <Link href="/" className="px-6 py-4 border-t">
-            <button className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
-              <HomeIcon className="w-4 h-4" />
-              Retour au site
-            </button>
-          </Link>
+          <div className="border-t sticky bottom-0 bg-white">
+            <Link href="/" className="block px-6 py-4">
+              <button className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                <HomeIcon className="w-4 h-4" />
+                Retour au site
+              </button>
+            </Link>
+          </div>
         </nav>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 overflow-x-hidden">
-        {/* Top Navigation */}
+      <main className="flex-1 ml-64 overflow-x-hidden">
         <header className="bg-white shadow-sm">
           <div className="flex items-center justify-end h-16 px-8">
             <div className="flex items-center gap-4">
               <button className="p-2 text-gray-400 hover:text-gray-600">
                 <span className="sr-only">Notifications</span>
-                {/* Bell Icon */}
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -114,11 +111,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           </div>
         </header>
 
-        {/* Page Content */}
         <div className="p-6">{children}</div>
       </main>
     </div>
   );
-};
-
-export default AdminLayout;
+}

@@ -1,11 +1,10 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
-import bcrypt from 'bcryptjs';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 
 export async function POST(req) {
   try {
-    // Récupérer les données envoyées par l'utilisateur
-    const { username, password, email } = await req.json();
+    const { username, password } = await req.json();
 
     // Vérifier si l'utilisateur existe déjà
     const existingUser = await prisma.user.findUnique({
@@ -14,7 +13,7 @@ export async function POST(req) {
 
     if (existingUser) {
       return NextResponse.json(
-        { error: 'Le nom d\'utilisateur est déjà pris' },
+        { error: "Le nom d'utilisateur est déjà pris" },
         { status: 409 }
       );
     }
@@ -27,7 +26,7 @@ export async function POST(req) {
       data: {
         username,
         password: hashedPassword,
-        role: 'USER', // Par défaut, le rôle est "USER", tu pourras l'ajuster si nécessaire
+        role: "USER", // Définir explicitement le rôle USER
       },
     });
 
@@ -42,9 +41,9 @@ export async function POST(req) {
 
     return NextResponse.json({ user: userData });
   } catch (error) {
-    console.error('Erreur lors de l\'inscription:', error);
+    console.error("Erreur lors de l'inscription:", error);
     return NextResponse.json(
-      { error: 'Une erreur est survenue, veuillez réessayer plus tard' },
+      { error: "Une erreur est survenue lors de l'inscription" },
       { status: 500 }
     );
   }

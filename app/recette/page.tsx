@@ -29,7 +29,7 @@ const RecipePage = async () => {
 
   return (
     <div className="pt-24 pb-16 container mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-5xl font-bold text-center mb-8 playfair-display text-pink-500">
+      <h1 className="text-5xl font-bold text-center mb-8 playfair-display">
         Recettes Culinaires
       </h1>
 

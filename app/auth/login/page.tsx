@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Button } from '../../../components/ui/button';
+import { Button } from "../../../components/ui/button";
 import {
   Card,
   CardContent,
@@ -15,9 +14,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../../../components/ui/card';
-import { Input } from '../../../components/ui/input';
-import { Label } from '../../../components/ui/label';
+} from "../../../components/ui/card";
+import { Input } from "../../../components/ui/input";
 import {
   Form,
   FormControl,
@@ -25,14 +23,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../../../components/ui/form';
-import { Separator } from '../../../components/ui/separator';
+} from "../../../components/ui/form";
+import { Separator } from "../../../components/ui/separator";
 import { toast } from "sonner";
-import { Eye, EyeOff, Mail, Lock, ChefHat } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, ChefHat } from "lucide-react";
+import { AuthService } from "@/app/services/auth.service";
+import Cookies from "js-cookie";
 
 const formSchema = z.object({
-  email: z.string().email({
-    message: "Veuillez entrer une adresse email valide.",
+  username: z.string().min(1, {
+    message: "Veuillez entrer votre nom d'utilisateur.",
   }),
   password: z.string().min(6, {
     message: "Le mot de passe doit contenir au moins 6 caractères.",
@@ -44,10 +44,19 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const role = Cookies.get("role");
+
+    if (token && role === "ADMIN") {
+      router.push("/admin/dashboard");
+    }
+  }, [router]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -55,22 +64,16 @@ export default function LoginPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
+      const data = await AuthService.login(values.username, values.password);
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data.user.role === "ADMIN") {
         toast.success("Connexion réussie !");
-        router.push('/admin/dashboard');
+        router.push("/admin/dashboard");
       } else {
-        toast.error(data.message || "Une erreur est survenue");
+        toast.error("Accès non autorisé");
       }
     } catch (error) {
-      toast.error("Erreur de connexion");
+      toast.error("Identifiants invalides");
     } finally {
       setIsLoading(false);
     }
@@ -78,11 +81,24 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md border-t-4 border-red-500">
         <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-2xl font-bold">Bienvenue sur Culiko</CardTitle>
+          <div className="flex justify-center mb-2">
+            <ChefHat className="h-8 w-8 text-pink-600" />
+          </div>
+          <CardTitle className="text-2xl font-bold">
+            Administration Culiko
+          </CardTitle>
           <CardDescription>
-            Connectez-vous pour accéder à votre espace personnel
+            <div className="bg-red-50 border border-red-200 rounded-md p-3 mb-4">
+              <div className="text-red-600 font-medium mb-1">
+                ⚠️ Accès restreint
+              </div>
+              <div className="text-red-500 text-sm">
+                Cette interface est exclusivement réservée aux administrateurs
+                de Culiko. Les connexions non autorisées seront signalées.
+              </div>
+            </div>
           </CardDescription>
         </CardHeader>
 
@@ -91,15 +107,15 @@ export default function LoginPage() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="email"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Nom d'utilisateur</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                         <Input
-                          placeholder="votre@email.com"
+                          placeholder="Entrez votre nom d'utilisateur"
                           className="pl-10"
                           {...field}
                         />
@@ -121,6 +137,7 @@ export default function LoginPage() {
                         <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                         <Input
                           type={showPassword ? "text" : "password"}
+                          placeholder="••••••••"
                           className="pl-10 pr-10"
                           {...field}
                         />
@@ -147,60 +164,16 @@ export default function LoginPage() {
               </Button>
             </form>
           </Form>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500">
-                  Ou continuez avec
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-4">
-              <Button variant="outline" className="w-full">
-                <Image
-                  src="/google.png"
-                  alt="Google"
-                  width={20}
-                  height={20}
-                  className="mr-2"
-                />
-                Google
-              </Button>
-              <Button variant="outline" className="w-full">
-                <Image
-                  src="/facebook.png"
-                  alt="Facebook"
-                  width={20}
-                  height={20}
-                  className="mr-2"
-                />
-                Facebook
-              </Button>
-            </div>
-          </div>
         </CardContent>
 
         <CardFooter className="flex flex-col space-y-4 text-center">
+          <Separator />
           <div className="text-sm">
             <Link
-              href="/auth/forgot-password"
-              className="font-medium text-pink-600 hover:text-pink-500"
+              href="/"
+              className="inline-flex items-center text-gray-600 hover:text-gray-800"
             >
-              Mot de passe oublié ?
-            </Link>
-          </div>
-          <div className="text-sm">
-            Pas encore de compte ?{" "}
-            <Link
-              href="/auth/signup"
-              className="font-medium text-pink-600 hover:text-pink-500"
-            >
-              Inscrivez-vous
+              ← Retour à l&apos;accueil
             </Link>
           </div>
         </CardFooter>

@@ -16,6 +16,8 @@ import {
   ArrowRight,
   Heart
 } from 'lucide-react';
+import { usePathname } from "next/navigation";
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -25,6 +27,9 @@ const Footer = () => {
     // TODO: Implémenter la logique d'inscription à la newsletter
     console.log('Newsletter subscription submitted');
   };
+const pathname = usePathname();
+if (pathname.startsWith("/admin")) return null;
+
 
   return (
     <footer className="bg-gray-900 text-gray-300">
@@ -43,40 +48,11 @@ const Footer = () => {
               />
             </div>
             <p className="text-sm mb-4">
-              Culiko est votre destination culinaire pour découvrir et partager
-              des recettes exceptionnelles. Notre mission est de rendre la
-              cuisine accessible et agréable pour tous.
+              Culiko est un projet expérimental utilisant l&apos;intelligence artificielle 
+              pour générer et partager des recettes de cuisine. Cette plateforme est 
+              conçue à des fins de démonstration et d&apos;exploration des possibilités 
+              offertes par l&apos;IA dans le domaine culinaire.
             </p>
-            <div className="flex space-x-4">
-              <Link
-                href="https://facebook.com"
-                target="_blank"
-                className="hover:text-pink-500 transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://twitter.com"
-                target="_blank"
-                className="hover:text-pink-500 transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://instagram.com"
-                target="_blank"
-                className="hover:text-pink-500 transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://youtube.com"
-                target="_blank"
-                className="hover:text-pink-500 transition-colors"
-              >
-                <Youtube className="w-5 h-5" />
-              </Link>
-            </div>
           </div>
 
           {/* Liens rapides */}
@@ -116,24 +92,19 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Contact</h3>
             <ul className="space-y-3">
-              <li className="flex items-center">
-                <Phone className="w-4 h-4 mr-2 text-pink-500" />
-                <span>+225 0123456789</span>
-              </li>
+              
               <li className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-pink-500" />
                 <a
                   href="mailto:contact@culiko.com"
                   className="hover:text-pink-500 transition-colors"
                 >
-                  contact@culiko.com
+                  alexcode225@gmail.com
                 </a>
               </li>
               <li className="flex items-start">
                 <MapPin className="w-4 h-4 mr-2 mt-1 text-pink-500" />
                 <span>
-                  123 Rue de la Cuisine
-                  <br />
                   Abidjan, Côte d&apos;Ivoire
                 </span>
               </li>

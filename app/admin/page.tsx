@@ -1,151 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { gsap } from "gsap";
+import { AuthService } from "../services/auth.service";
 import AdminLayout from "../components/layouts/AdminLayout";
-
-// Définir un type pour les utilisateurs
-interface User {
-  id: string;
-  username: string;
-  role: "USER" | "ADMIN";
-  createdAt: string;
-  updatedAt: string;
-}
+import LoadingScreen from "../components/LoadingScreen";
 
 const AdminPage = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [userRole, setUserRole] = useState<string | null>(null);
-  const [updatingRole, setUpdatingRole] = useState<string | null>(null); // Ajout pour savoir quel utilisateur est en train de se mettre à jour
-  const [roleChangePending, setRoleChangePending] = useState<string | null>(
-    null
-  ); // Etat pour gérer la mise à jour optimiste
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    const role = Cookies.get("role");
-    const token = Cookies.get("token");
-
-    if (!role || !token) {
-      router.push("/");
-    } else {
-      setUserRole(role);
-      if (role !== "ADMIN") {
-        router.push("/");
-      } else {
-        const fetchUsers = async () => {
-          try {
-            const res = await fetch("/api/users", {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            });
-
-            if (!res.ok) {
-              throw new Error(
-                "Erreur lors de la récupération des utilisateurs."
-              );
-            }
-
-            const data: User[] = await res.json();
-            setUsers(data);
-            gsap.from(".user-row", {
-              opacity: 0,
-              stagger: 0.2,
-              y: 30,
-              duration: 1,
-            });
-          } catch (error) {
-            console.error("Erreur de récupération des utilisateurs:", error);
-            alert("Une erreur est survenue.");
-          } finally {
-            setLoading(false);
-          }
-        };
-
-        fetchUsers();
+    const checkAuth = async () => {
+      if (!AuthService.isAuthenticated() || !AuthService.isAdmin()) {
+        router.replace("/auth/login");
+        return;
       }
-    }
+      setIsAuthorized(true);
+    };
+    
+    checkAuth();
   }, [router]);
 
-  const handleRoleChange = async (
-    userId: string,
-    newRole: "USER" | "ADMIN"
-  ) => {
-    const token = Cookies.get("token");
-    if (!token) {
-      router.push("/");
-      return;
-    }
-
-    // Mise à jour optimiste de l'interface
-    setRoleChangePending(userId); // Déclenche la mise à jour immédiate
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, role: newRole } : user
-      )
-    );
-
-    setUpdatingRole(userId); // Déclenche le spinner pour cet utilisateur
-
-    try {
-      const res = await fetch(`/api/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ role: newRole }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Erreur lors de la modification du rôle.");
-      }
-
-      const data = await res.json();
-
-      // Réinitialiser le rôle dans l'état si nécessaire
-      setRoleChangePending(null); // Effacer la mise à jour optimiste
-
-      gsap.to(`.user-row-${userId}`, {
-        scale: 1.05,
-        duration: 0.3,
-        ease: "power1.out",
-      });
-      setTimeout(
-        () => gsap.to(`.user-row-${userId}`, { scale: 1, duration: 0.3 }),
-        300
-      );
-    } catch (error) {
-      console.error("Erreur lors du changement de rôle:", error);
-      alert("Une erreur est survenue.");
-
-      // Si la requête échoue, réinitialiser le rôle à son état initial
-      setUsers((prev) =>
-        prev.map((user) =>
-          user.id === userId ? { ...user, role: user.role } : user
-        )
-      );
-      setRoleChangePending(null); // Effacer la mise à jour optimiste
-    } finally {
-      setUpdatingRole(null); // Retirer le spinner après la mise à jour
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Chargement...
-      </div>
-    );
+  if (!isAuthorized) {
+    return <LoadingScreen />;
   }
 
   return (
-    <AdminLayout>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">
           Bienvenue dans l&apos;interface d&apos;administration
@@ -187,7 +67,6 @@ const AdminPage = () => {
           </div>
         </div>
       </div>
-    </AdminLayout>
   );
 };
 

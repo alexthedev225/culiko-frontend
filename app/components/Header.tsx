@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -14,20 +14,46 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { AuthService } from "@/app/services/auth.service";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      Cookies.remove("token");
+      setIsLoggedIn(false);
+      toast.success("Déconnexion réussie");
+      router.push("/");
+    } catch (error) {
+      toast.error("Erreur lors de la déconnexion");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const menuItems = [
     {
@@ -37,27 +63,33 @@ const Header = () => {
       items: [
         { title: "Toutes les recettes", href: "/recette" },
         { title: "Desserts", href: "/recette?category=Dessert" },
-        { title: "Plats principaux", href: "/recette?category=Plats principaux" },
-        { title: "Entrées", href: "/recette?category=Entrée" }
-      ]
+        {
+          title: "Plats principaux",
+          href: "/recette?category=Plats principaux",
+        },
+        { title: "Entrées", href: "/recette?category=Entrée" },
+      ],
     },
     {
       title: "À propos",
       href: "/about",
-      description: "En savoir plus sur Culiko"
+      description: "En savoir plus sur Culiko",
     },
-    
+
     {
       title: "Contact",
       href: "/contact",
-      description: "Nous contacter"
-    }
+      description: "Nous contacter",
+    },
   ];
-
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return null;
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-transparent'
-    }`}>
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/95 backdrop-blur-md shadow-md" : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           {/* Logo */}
@@ -79,7 +111,9 @@ const Header = () => {
                   <NavigationMenuItem key={item.title}>
                     {item.items ? (
                       <>
-                        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+                        <NavigationMenuTrigger>
+                          {item.title}
+                        </NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
                             {item.items.map((subItem) => (
@@ -101,7 +135,9 @@ const Header = () => {
                       </>
                     ) : (
                       <Link href={item.href} legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
                           {item.title}
                         </NavigationMenuLink>
                       </Link>
@@ -114,10 +150,19 @@ const Header = () => {
             <Button variant="ghost" size="icon">
               <Search className="w-5 h-5" />
             </Button>
-
-            <Button>
-              Connexion
-            </Button>
+            <Link href="/auth/login">
+              <Button
+                className={isLoggedIn ? "bg-red-500 hover:bg-red-600" : ""}
+                onClick={isLoggedIn ? handleLogout : undefined}
+                disabled={isLoading}
+              >
+                {isLoading
+                  ? "Chargement..."
+                  : isLoggedIn
+                  ? "Se déconnecter"
+                  : "Connexion"}
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu */}
@@ -162,9 +207,21 @@ const Header = () => {
                       )}
                     </div>
                   ))}
-                  <Button className="w-full mt-4">
-                    Connexion
-                  </Button>
+                  <Link href="/auth/login">
+                    <Button
+                      className={`w-full mt-4 ${
+                        isLoggedIn ? "bg-red-500 hover:bg-red-600" : ""
+                      }`}
+                      onClick={isLoggedIn ? handleLogout : undefined}
+                      disabled={isLoading}
+                    >
+                      {isLoading
+                        ? "Chargement..."
+                        : isLoggedIn
+                        ? "Se déconnecter"
+                        : "Connexion"}
+                    </Button>
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>

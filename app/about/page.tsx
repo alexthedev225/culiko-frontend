@@ -1,7 +1,6 @@
 'use client';
 
 import React from "react";
-import Image from "next/image";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../components/ui/hover-card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordion';
@@ -12,33 +11,33 @@ import { ChefHat, Heart, Users, Utensils, Star, Coffee } from "lucide-react";
 const features = [
   {
     icon: <ChefHat className="w-6 h-6" />,
-    title: "Recettes de Qualité",
-    description: "Des recettes soigneusement sélectionnées et testées pour votre satisfaction"
+    title: "Projet Expérimental",
+    description: "Une démonstration des possibilités de l'IA dans la génération de recettes"
   },
   {
     icon: <Heart className="w-6 h-6" />,
-    title: "Fait avec Amour",
-    description: "Chaque recette est créée avec passion et attention aux détails"
+    title: "Innovation Tech",
+    description: "Un projet full-stack combinant Next.js, React et l'IA générative"
   },
   {
     icon: <Users className="w-6 h-6" />,
-    title: "Communauté Active",
-    description: "Rejoignez une communauté passionnée de cuisine"
+    title: "Open Source",
+    description: "Un projet personnel pour explorer les technologies modernes du web"
   }
 ];
 
 const faqItems = [
   {
     question: "Comment sont créées les recettes ?",
-    answer: "Nos recettes sont générées par une intelligence artificielle avancée, puis vérifiées et ajustées par notre équipe pour garantir leur qualité et leur faisabilité."
+    answer: "Les recettes sont générées automatiquement par des modèles d'intelligence artificielle. Ce projet est une démonstration technique et les recettes n'ont pas été testées en conditions réelles."
   },
   {
-    question: "Puis-je proposer mes propres recettes ?",
-    answer: "Bientôt ! Nous travaillons sur une fonctionnalité qui permettra aux utilisateurs de partager leurs propres recettes."
+    question: "Quel est le but de ce projet ?",
+    answer: "Culiko est un projet de démonstration technique que j'ai développé pour mettre en pratique mes compétences en développement web et en intégration d'IA. C'est une expérimentation plutôt qu'un service culinaire professionnel."
   },
   {
-    question: "Les recettes sont-elles vérifiées ?",
-    answer: "Oui, chaque recette est validée par notre équipe avant d&apos;être publiée sur la plateforme."
+    question: "Les recettes sont-elles fiables ?",
+    answer: "Les recettes sont générées par IA et n'ont pas été validées par des experts culinaires. Ce projet est avant tout une démonstration de ce qui est possible avec l'IA et le développement web moderne."
   }
 ];
 
@@ -54,16 +53,16 @@ const teamMembers = [
 
 const About: React.FC = () => {
   return (
-    <div className="pt-8 min-h-screen bg-gradient-to-b from-pink-50 to-white">
+    <div className="pt-8 min-h-screen ">
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* En-tête */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold mb-6 playfair-display text-pink-500">
+            <h1 className="text-5xl font-bold mb-6 playfair-display ">
               À propos de Culiko
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez l&apos;histoire derrière votre nouvelle plateforme de recettes préférée
+              Un projet de démonstration technique explorant la génération de recettes par IA
             </p>
           </div>
 
@@ -91,26 +90,26 @@ const About: React.FC = () => {
             <CardContent className="p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h2 className="text-3xl font-semibold mb-4 playfair-display text-gray-900">
-                    Notre Mission
+                  <h2 className="text-3xl font-semibold mb-4  text-gray-900">
+                    Ma Mission
                   </h2>
                   <p className="text-gray-600 leading-relaxed">
-                    Chez Culiko, notre mission est de vous fournir des recettes de
-                    qualité, simples et délicieuses, pour que chaque repas soit une
-                    aventure culinaire inoubliable. Nous croyons en l&apos;importance de
-                    cuisiner avec des ingrédients frais et de partager des moments
-                    précieux autour de la table.
+                    Culiko est un projet expérimental que j&apos;ai créé pour explorer les 
+                    possibilités offertes par l&apos;IA dans la génération de recettes 
+                    de cuisine. Mon objectif est de démontrer les capacités des 
+                    technologies modernes tout en créant une expérience utilisateur 
+                    interactive et engageante.
                   </p>
                 </div>
                 <div>
-                  <h2 className="text-3xl font-semibold mb-4 playfair-display text-gray-900">
-                    Notre Vision
+                  <h2 className="text-3xl font-semibold mb-4  text-gray-900">
+                    Ma Vision
                   </h2>
                   <p className="text-gray-600 leading-relaxed">
-                    Nous aspirons à devenir la meilleure plateforme de partage de
-                    recettes en ligne, en offrant une expérience utilisateur
-                    exceptionnelle et un contenu culinaire inspirant pour les cuisiniers
-                    de tous niveaux.
+                    Ce projet démontre ma capacité à concevoir et développer 
+                    des applications web modernes en utilisant les dernières technologies. 
+                    Il représente une exploration pratique des possibilités offertes par 
+                    l&apos;IA dans un contexte web.
                   </p>
                 </div>
               </div>
@@ -119,8 +118,8 @@ const About: React.FC = () => {
 
           {/* Équipe */}
           <div className="mb-16">
-            <h2 className="text-3xl font-semibold text-center mb-8 playfair-display text-gray-900">
-              Notre Équipe
+            <h2 className="text-3xl font-semibold text-center mb-8  text-gray-900">
+              Le Développeur
             </h2>
             <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto">
               {teamMembers.map((member, index) => (
@@ -158,7 +157,7 @@ const About: React.FC = () => {
 
           {/* FAQ */}
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-semibold text-center mb-8 playfair-display text-gray-900">
+            <h2 className="text-3xl font-semibold text-center mb-8  text-gray-900">
               Questions Fréquentes
             </h2>
             <Accordion type="single" collapsible>

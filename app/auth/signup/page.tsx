@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -25,25 +24,23 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
-import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Lock, User } from "lucide-react";
 
-const formSchema = z.object({
-  username: z.string().min(3, {
-    message: "Le nom d'utilisateur doit contenir au moins 3 caractères.",
-  }),
-  email: z.string().email({
-    message: "Veuillez entrer une adresse email valide.",
-  }),
-  password: z.string().min(6, {
-    message: "Le mot de passe doit contenir au moins 6 caractères.",
-  }),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Les mots de passe ne correspondent pas",
-  path: ["confirmPassword"],
-});
+const formSchema = z
+  .object({
+    username: z.string().min(3, {
+      message: "Le nom d'utilisateur doit contenir au moins 3 caractères.",
+    }),
+    password: z.string().min(6, {
+      message: "Le mot de passe doit contenir au moins 6 caractères.",
+    }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Les mots de passe ne correspondent pas",
+    path: ["confirmPassword"],
+  });
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -55,7 +52,6 @@ export default function SignUpPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-      email: "",
       password: "",
       confirmPassword: "",
     },
@@ -65,27 +61,30 @@ export default function SignUpPage() {
     try {
       setIsLoading(true);
       const { confirmPassword, ...submitData } = values;
-      
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submitData),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        toast.success("Inscription réussie ! Vous pouvez maintenant vous connecter.");
-        router.push('/auth/login');
-      } else {
+      if (!response.ok) {
+        const data = await response.json();
         if (response.status === 409) {
           toast.error("Ce nom d'utilisateur est déjà pris");
           return;
         }
-        toast.error(data.error || "Une erreur est survenue lors de l'inscription");
+        throw new Error(data.error || "Erreur lors de l'inscription");
       }
+
+      toast.success(
+        "Inscription réussie ! Vous pouvez maintenant vous connecter."
+      );
+      router.push("/auth/login");
     } catch (error) {
-      toast.error("Erreur lors de l'inscription");
+      toast.error(
+        error instanceof Error ? error.message : "Erreur lors de l'inscription"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -95,9 +94,11 @@ export default function SignUpPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-2xl font-bold">Créer un compte</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Inscription Administrateur
+          </CardTitle>
           <CardDescription>
-            Rejoignez la communauté Culiko et partagez vos meilleures recettes
+            Créez votre compte administrateur pour gérer la plateforme Culiko
           </CardDescription>
         </CardHeader>
 
@@ -114,29 +115,7 @@ export default function SignUpPage() {
                       <div className="relative">
                         <User className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                         <Input
-                          placeholder="votre nom d&apos;utilisateur"
-                          className="pl-10"
-                          {...field}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                        <Input
-                          placeholder="votre@email.com"
-                          type="email"
+                          placeholder="votre nom d'utilisateur"
                           className="pl-10"
                           {...field}
                         />
@@ -195,7 +174,9 @@ export default function SignUpPage() {
                         />
                         <button
                           type="button"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
                           className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
                         >
                           {showConfirmPassword ? (
@@ -216,47 +197,11 @@ export default function SignUpPage() {
               </Button>
             </form>
           </Form>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500">
-                  Ou inscrivez-vous avec
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-4">
-              <Button variant="outline" className="w-full">
-                <Image
-                  src="/google.png"
-                  alt="Google"
-                  width={20}
-                  height={20}
-                  className="mr-2"
-                />
-                Google
-              </Button>
-              <Button variant="outline" className="w-full">
-                <Image
-                  src="/facebook.png"
-                  alt="Facebook"
-                  width={20}
-                  height={20}
-                  className="mr-2"
-                />
-                Facebook
-              </Button>
-            </div>
-          </div>
         </CardContent>
 
         <CardFooter className="flex justify-center">
           <div className="text-sm">
-            Déjà inscrit ?{" "}
+            Déjà administrateur ?{" "}
             <Link
               href="/auth/login"
               className="font-medium text-pink-600 hover:text-pink-500"

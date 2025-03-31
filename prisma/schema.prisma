@@ -31,9 +31,10 @@ model Recipe {
   excerpt      String?
   diet         String?
   calories     Int?
-  imagePath    String
-  ingredients  String
-  instructions String
+  imagePath    String?
+  ingredients  String[] 
+  instructions String[]
+  status       String   @default("draft")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
