@@ -47,8 +47,8 @@ const TestimonialsSection = () => {
   return (
     <section className="py-12 md:py-20 relative dark:from-gray-900 dark:to-gray-800 overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -59,7 +59,7 @@ const TestimonialsSection = () => {
         </h2>
 
         <div className="relative">
-          <Carousel 
+          <Carousel
             className="max-w-[85vw] md:max-w-4xl mx-auto"
             plugins={[plugin.current]}
             opts={{
@@ -69,7 +69,10 @@ const TestimonialsSection = () => {
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-4/5 lg:basis-3/4">
+                <CarouselItem
+                  key={index}
+                  className="pl-2 md:pl-4 md:basis-4/5 lg:basis-3/4"
+                >
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -80,7 +83,7 @@ const TestimonialsSection = () => {
                     <Card className="relative overflow-hidden border-none bg-white/20 dark:bg-gray-800/30 backdrop-blur-xl rounded-xl">
                       <CardContent className="p-6 md:p-8">
                         <div className="flex flex-col items-center space-y-4 md:space-y-6">
-                          <motion.div 
+                          <motion.div
                             className="relative h-16 w-16 md:h-20 md:w-20"
                             whileHover={{ scale: 1.1, rotate: 5 }}
                             transition={{ type: "spring", stiffness: 300 }}
@@ -97,7 +100,7 @@ const TestimonialsSection = () => {
                               {testimonial.name}
                             </h3>
                             <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 italic leading-relaxed font-light">
-                              "{testimonial.quote}"
+                              &quot;{testimonial.quote}&quot;
                             </p>
                           </div>
                         </div>
