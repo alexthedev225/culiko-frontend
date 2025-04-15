@@ -158,8 +158,17 @@ const Footer = () => {
                 disabled={isLoading}
               />
               <Button className="w-full" disabled={isLoading}>
-                {isLoading ? "Inscription..." : "S'abonner"}
-                <ArrowRight className="w-4 h-4 ml-2" />
+                {isLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white/20 border-t-white" />
+                    Inscription...
+                  </div>
+                ) : (
+                  <>
+                    S&apos;abonner
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
               </Button>
             </form>
           </div>

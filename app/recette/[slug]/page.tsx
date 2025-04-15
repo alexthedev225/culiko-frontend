@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Users, ChefHat } from "lucide-react";
 import BackButton from "@/components/BackButton";
 import { getApiUrl } from "@/services/api.service";
+import { Spinner } from "@/components/ui/spinner";
 
 interface Recipe {
   id: string;
@@ -65,7 +66,7 @@ export default function RecipePage() {
 
   if (error)
     return <div className="text-center mt-8 text-red-500">{error}</div>;
-  if (!recipe) return <div className="text-center mt-8">Chargement...</div>;
+  if (!recipe) return <Spinner fullScreen />;
 
   return (
     <main className="min-h-screen pt-24 pb-16">
