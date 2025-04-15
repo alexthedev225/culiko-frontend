@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,22 +14,53 @@ import {
   Phone,
   MapPin,
   ArrowRight,
-  Heart
-} from 'lucide-react';
+  Heart,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
-
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const Footer = () => {
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const currentYear = new Date().getFullYear();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implémenter la logique d'inscription à la newsletter
-    console.log('Newsletter subscription submitted');
-  };
-const pathname = usePathname();
-if (pathname.startsWith("/admin")) return null;
+    setIsLoading(true);
 
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'inscription");
+      }
+
+      toast({
+        title: "Inscription réussie !",
+        description: "Vous recevrez bientôt nos dernières actualités.",
+      });
+      setEmail("");
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'inscription.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <footer className="bg-gray-900 text-gray-300">
@@ -48,10 +79,11 @@ if (pathname.startsWith("/admin")) return null;
               />
             </div>
             <p className="text-sm mb-4">
-              Culiko est un projet expérimental utilisant l&apos;intelligence artificielle 
-              pour générer et partager des recettes de cuisine. Cette plateforme est 
-              conçue à des fins de démonstration et d&apos;exploration des possibilités 
-              offertes par l&apos;IA dans le domaine culinaire.
+              Culiko est un projet expérimental utilisant l&apos;intelligence
+              artificielle pour générer et partager des recettes de cuisine.
+              Cette plateforme est conçue à des fins de démonstration et
+              d&apos;exploration des possibilités offertes par l&apos;IA dans le
+              domaine culinaire.
             </p>
           </div>
 
@@ -92,7 +124,6 @@ if (pathname.startsWith("/admin")) return null;
           <div>
             <h3 className="text-white font-semibold mb-4">Contact</h3>
             <ul className="space-y-3">
-              
               <li className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-pink-500" />
                 <a
@@ -104,9 +135,7 @@ if (pathname.startsWith("/admin")) return null;
               </li>
               <li className="flex items-start">
                 <MapPin className="w-4 h-4 mr-2 mt-1 text-pink-500" />
-                <span>
-                  Abidjan, Côte d&apos;Ivoire
-                </span>
+                <span>Abidjan, Côte d&apos;Ivoire</span>
               </li>
             </ul>
           </div>
@@ -121,11 +150,15 @@ if (pathname.startsWith("/admin")) return null;
             <form className="space-y-2" onSubmit={handleSubmit}>
               <Input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Votre email"
                 className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
+                required
+                disabled={isLoading}
               />
-              <Button className="w-full">
-                S&apos;abonner
+              <Button className="w-full" disabled={isLoading}>
+                {isLoading ? "Inscription..." : "S'abonner"}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </form>

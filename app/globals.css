@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 * {
   padding: 0;
@@ -14,7 +13,6 @@
 }
 .playfair-display {
   font-family: "Playfair Display", serif;
-
 }
 .image {
   height: 150px;
@@ -87,5 +85,106 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media print {
+  * {
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #000 !important;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 11pt;
+    line-height: 1.4;
+    width: 100%;
+    height: auto;
+  }
+
+  nav,
+  footer,
+  .print\\:hidden,
+  .no-print,
+  .back-button,
+  button {
+    display: none !important;
+  }
+
+  .container,
+  .max-w-4xl,
+  .grid,
+  .print\\:max-w-none {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  h1 {
+    font-size: 20pt;
+    margin: 0 0 8px 0;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 14pt;
+    margin: 12px 0 6px;
+    border-bottom: 1px solid #aaa;
+  }
+
+  p,
+  li,
+  td {
+    font-size: 11pt;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .recipe-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    margin-bottom: 12px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 6px 0;
+  }
+
+  .ingredients,
+  .instructions {
+    margin-bottom: 8px;
+  }
+
+  .ingredients ul,
+  .instructions ol {
+    padding-left: 18px;
+  }
+
+  img,
+  .aspect-ratio {
+    max-height: 200px;
+    object-fit: cover;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .card,
+  .Card,
+  .CardContent {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Forcer l'impression sur une seule page */
+  main,
+  body {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }

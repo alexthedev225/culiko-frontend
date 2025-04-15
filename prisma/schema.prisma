@@ -1,7 +1,8 @@
+// schema.prisma
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -24,6 +25,7 @@ model User {
 }
 
 model Recipe {
+  // Champs de base
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   title        String
   content      String
@@ -32,9 +34,18 @@ model Recipe {
   diet         String?
   calories     Int?
   imagePath    String?
-  ingredients  String[] 
+
+  // Tableaux de chaînes de caractères
+  ingredients  String[]
   instructions String[]
-  status       String   @default("draft")
+
+  // Champs à remplir manuellement (plus de valeurs par défaut)
+  status       String
+  prepTime     Int
+  servings     Int
+  difficulty   String
+
+  // Horodatage
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

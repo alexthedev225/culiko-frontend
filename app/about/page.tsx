@@ -129,7 +129,6 @@ const About: React.FC = () => {
                       <CardContent className="p-6">
                         <div className="flex items-center space-x-6">
                           <Avatar className="w-24 h-24">
-                            <AvatarImage src={member.image} alt={member.name} />
                             <AvatarFallback>{member.name[0]}</AvatarFallback>
                           </Avatar>
                           <div>

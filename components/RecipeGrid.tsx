@@ -1,15 +1,28 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight, ChefHat } from 'lucide-react';
+import { ArrowRight, ChefHat } from "lucide-react";
 
 interface Recipe {
   id: string;
@@ -25,45 +38,66 @@ interface RecipeGridProps {
   recipes: Recipe[];
   categories: string[];
   defaultImageUrl: string;
+  defaultCategory?: string;
 }
 
-const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, categories, defaultImageUrl }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedDiet, setSelectedDiet] = useState<string>('all');
-  const [selectedCalorieRange, setSelectedCalorieRange] = useState<string>('all');
+const RecipeGrid: React.FC<RecipeGridProps> = ({
+  recipes,
+  categories,
+  defaultImageUrl,
+  defaultCategory,
+}) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDiet, setSelectedDiet] = useState<string>("all");
+  const [selectedCalorieRange, setSelectedCalorieRange] =
+    useState<string>("all");
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (defaultCategory) {
+      // Mise à jour de l'URL si nécessaire
+      const params = new URLSearchParams(searchParams);
+      params.set("category", defaultCategory);
+      router.push(`/recette?${params.toString()}`);
+    }
+  }, [defaultCategory, router, searchParams]);
 
   const dietOptions = [
-    { label: 'Tous les régimes', value: 'all' },
-    { label: 'Végétarien', value: 'vegetarian' },
-    { label: 'Végan', value: 'vegan' },
-    { label: 'Sans gluten', value: 'gluten-free' },
-    { label: 'Équilibré', value: 'balanced' }
+    { label: "Tous les régimes", value: "all" },
+    { label: "Végétarien", value: "vegetarian" },
+    { label: "Végan", value: "vegan" },
+    { label: "Sans gluten", value: "gluten-free" },
+    { label: "Équilibré", value: "balanced" },
   ];
 
   const calorieRanges = [
-    { label: 'Toutes les calories', value: 'all' },
-    { label: 'Moins de 300 calories', value: 'low' },
-    { label: '300-600 calories', value: 'medium' },
-    { label: 'Plus de 600 calories', value: 'high' }
+    { label: "Toutes les calories", value: "all" },
+    { label: "Moins de 300 calories", value: "low" },
+    { label: "300-600 calories", value: "medium" },
+    { label: "Plus de 600 calories", value: "high" },
   ];
 
   const filterRecipes = (recipes: Recipe[]) => {
-    return recipes.filter(recipe => {
-      const matchesSearch = recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    return recipes.filter((recipe) => {
+      const matchesSearch =
+        recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         recipe.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesDiet = selectedDiet === 'all' || recipe.diet === selectedDiet;
+      const matchesDiet =
+        selectedDiet === "all" || recipe.diet === selectedDiet;
 
       let matchesCalories = true;
-      if (selectedCalorieRange !== 'all' && recipe.calories) {
+      if (selectedCalorieRange !== "all" && recipe.calories) {
         switch (selectedCalorieRange) {
-          case 'low':
+          case "low":
             matchesCalories = recipe.calories < 300;
             break;
-          case 'medium':
+          case "medium":
             matchesCalories = recipe.calories >= 300 && recipe.calories <= 600;
             break;
-          case 'high':
+          case "high":
             matchesCalories = recipe.calories > 600;
             break;
         }
@@ -87,19 +121,22 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, categories, defaultIma
             <SelectValue placeholder="Filtrer par régime" />
           </SelectTrigger>
           <SelectContent>
-            {dietOptions.map(option => (
+            {dietOptions.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
-        <Select value={selectedCalorieRange} onValueChange={setSelectedCalorieRange}>
+        <Select
+          value={selectedCalorieRange}
+          onValueChange={setSelectedCalorieRange}
+        >
           <SelectTrigger className="w-full sm:w-[200px]">
             <SelectValue placeholder="Filtrer par calories" />
           </SelectTrigger>
           <SelectContent>
-            {calorieRanges.map(range => (
+            {calorieRanges.map((range) => (
               <SelectItem key={range.value} value={range.value}>
                 {range.label}
               </SelectItem>
@@ -108,7 +145,7 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, categories, defaultIma
         </Select>
       </div>
 
-      <Tabs defaultValue={categories[0]}>
+      <Tabs defaultValue={defaultCategory || categories[0]}>
         <TabsList className="mb-4 flex flex-wrap h-auto gap-2">
           {categories.map((category) => (
             <TabsTrigger key={category} value={category} className="px-4 py-2">
@@ -123,8 +160,8 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, categories, defaultIma
               {filterRecipes(recipes)
                 .filter((recipe) => recipe.category === category)
                 .map((recipe) => (
-                  <Link 
-                    key={recipe.id} 
+                  <Link
+                    key={recipe.id}
                     href={`/recette/${recipe.id}`}
                     className="block group h-full"
                   >
@@ -138,8 +175,8 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, categories, defaultIma
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         <div className="absolute bottom-3 right-3">
-                          <Badge 
-                            variant="secondary" 
+                          <Badge
+                            variant="secondary"
                             className="bg-white/95 shadow-sm hover:shadow-md transition-shadow"
                           >
                             <ChefHat className="w-4 h-4 mr-1" />
@@ -154,7 +191,10 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, categories, defaultIma
                               {recipe.title}
                             </CardTitle>
                             {recipe.diet && (
-                              <Badge variant="secondary" className="whitespace-nowrap mt-1">
+                              <Badge
+                                variant="secondary"
+                                className="whitespace-nowrap mt-1"
+                              >
                                 {recipe.diet}
                               </Badge>
                             )}

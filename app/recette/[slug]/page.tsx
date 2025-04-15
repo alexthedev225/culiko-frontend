@@ -1,172 +1,162 @@
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { Clock, Users, ChefHat, Printer, Share2, Bookmark, Star, ArrowLeft } from 'lucide-react';
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import BackButton from '@/components/BackButton';
+"use client";
 
-interface Post {
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import Image from "next/image";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Clock, Users, ChefHat } from "lucide-react";
+import BackButton from "@/components/BackButton";
+import { getApiUrl } from "@/services/api.service";
+
+interface Recipe {
   id: string;
   title: string;
   excerpt: string;
   category: string;
-  content: string;
-  diet?: string;
-  calories?: number;
   imagePath: string;
-  ingredients: string;
-  instructions: string;
+  ingredients: string[];
+  instructions: string[];
   prepTime: number;
   servings: number;
   difficulty: string;
 }
 
-async function getRecipe(id: string): Promise<Post> {
-  const baseUrl = `${process.env.NEXT_PUBLIC_API_VERCEL_URL}/api`;
-  const res = await fetch(`${baseUrl}/recipes/${id}`, { cache: 'no-store' });
-  
-  if (!res.ok) {
-    if (res.status === 404) notFound();
-    throw new Error('Failed to fetch recipe');
-  }
- 
-  return res.json();
-}
+export default function RecipePage() {
+  const params = useParams();
+  const id = params?.slug;
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-export default async function RecipePage({ params }: { params: { slug: string } }) {
-  const recipe = await getRecipe(params.slug);
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      try {
+        const baseUrl = getApiUrl();
+        const apiUrl = `${baseUrl}/api/recipes/${id}`;
+        console.log("Fetching recipe from:", apiUrl);
+
+        const res = await fetch(apiUrl, {
+          cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error("API Error Response:", errorText);
+          throw new Error(`Failed to fetch recipe: ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        if (!data) throw new Error("No data received");
+        setRecipe(data);
+      } catch (error) {
+        console.error("Error fetching recipe:", error);
+        setError(
+          error instanceof Error ? error.message : "Failed to load recipe"
+        );
+      }
+    };
+
+    if (id) fetchRecipe();
+  }, [id]);
+
+  if (error)
+    return <div className="text-center mt-8 text-red-500">{error}</div>;
+  if (!recipe) return <div className="text-center mt-8">Chargement...</div>;
 
   return (
     <main className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8">
           <BackButton />
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm">
-              <Printer className="w-4 h-4 mr-2" />
-              Imprimer
-            </Button>
-            <Button variant="outline" size="sm">
-              <Share2 className="w-4 h-4 mr-2" />
-              Partager
-            </Button>
-          </div>
         </div>
 
-        {/* En-tête de la recette */}
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
-              <Badge variant="secondary">{recipe.category}</Badge>
-              <Badge variant="outline" className="text-yellow-600">
-                <Star className="w-3 h-3 mr-1 fill-yellow-400" />
-                4.5 (128 avis)
-              </Badge>
+        <Card className="max-w-4xl mx-auto">
+          <CardHeader className="space-y-6">
+            <div className="space-y-4">
+              <Badge className="w-fit">{recipe.category}</Badge>
+              <CardTitle className="text-4xl font-bold playfair-display">
+                {recipe.title}
+              </CardTitle>
             </div>
-            
-            <h1 className="text-4xl font-bold mb-4 playfair-display">
-              {recipe.title}
-            </h1>
-            
-            <p className="text-gray-600 text-lg mb-6">
-              {recipe.excerpt}
-            </p>
 
-            <div className="flex flex-wrap gap-6 mb-8">
-              <div className="flex items-center text-gray-600">
+            <Separator className="my-4" />
+
+            <div className="flex flex-wrap gap-6">
+              <div className="flex items-center text-muted-foreground">
                 <Clock className="w-5 h-5 mr-2" />
-                <span>Préparation: {recipe.prepTime} min</span>
+                <span>{recipe.prepTime} min</span>
               </div>
-              <div className="flex items-center text-gray-600">
+              <div className="flex items-center text-muted-foreground">
                 <Users className="w-5 h-5 mr-2" />
-                <span>{recipe.servings} personnes</span>
+                <span>{recipe.servings} portions</span>
               </div>
-              <div className="flex items-center text-gray-600">
+              <div className="flex items-center text-muted-foreground">
                 <ChefHat className="w-5 h-5 mr-2" />
-                <span>Difficulté: {recipe.difficulty}</span>
+                <span>{recipe.difficulty}</span>
               </div>
             </div>
+          </CardHeader>
 
-            <div className="flex gap-4">
-              <Button>
-                <Printer className="w-4 h-4 mr-2" />
-                Imprimer
-              </Button>
-              <Button variant="outline">
-                <Share2 className="w-4 h-4 mr-2" />
-                Partager
-              </Button>
-              <Button variant="outline">
-                <Bookmark className="w-4 h-4 mr-2" />
-                Sauvegarder
-              </Button>
-            </div>
-          </div>
-
-          {/* Image de la recette */}
-          <Card className="mb-12">
-            <CardContent className="p-0">
-              <AspectRatio ratio={16/9}>
+          <CardContent className="space-y-8">
+            {recipe.imagePath && (
+              <div className="relative w-full max-w-2xl mx-auto aspect-[16/9] rounded-lg overflow-hidden">
                 <Image
                   src={recipe.imagePath}
                   alt={recipe.title}
                   fill
-                  className="object-cover rounded-lg"
+                  className="object-cover"
                   priority
                 />
-              </AspectRatio>
-            </CardContent>
-          </Card>
+              </div>
+            )}
 
-          {/* Ingrédients et Instructions */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Ingrédients */}
-            <Card className="md:col-span-1">
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-semibold mb-4">Ingrédients</h2>
+            <Separator />
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="md:col-span-1 bg-muted/50">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center gap-2">
+                    Ingrédients
+                  </CardTitle>
+                </CardHeader>
                 <Separator className="mb-4" />
-                <Table>
-                  <TableBody>
-                    {JSON.parse(recipe.ingredients).map((ingredient: string, index: number) => (
-                      <TableRow key={index}>
-                        <TableCell className="py-2">{ingredient}</TableCell>
-                      </TableRow>
+                <CardContent>
+                  <ul className="list-none space-y-3">
+                    {recipe.ingredients.map((ingredient, index) => (
+                      <li key={index} className="flex items-center gap-3">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                        <span className="text-sm">{ingredient}</span>
+                      </li>
                     ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
+                  </ul>
+                </CardContent>
+              </Card>
 
-            {/* Instructions */}
-            <Card className="md:col-span-2">
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-semibold mb-4">Instructions</h2>
+              <Card className="md:col-span-2">
+                <CardHeader>
+                  <CardTitle className="text-xl">Instructions</CardTitle>
+                </CardHeader>
                 <Separator className="mb-4" />
-                <ol className="space-y-6">
-                  {JSON.parse(recipe.instructions).map((instruction: string, index: number) => (
-                    <li key={index} className="flex gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center font-semibold">
-                        {index + 1}
-                      </span>
-                      <p className="text-gray-700">{instruction}</p>
-                    </li>
-                  ))}
-                </ol>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+                <CardContent>
+                  <ol className="space-y-6">
+                    {recipe.instructions.map((instruction, index) => (
+                      <li key={index} className="flex gap-4">
+                        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm">
+                          {index + 1}
+                        </span>
+                        <span className="flex-1 text-sm">{instruction}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </CardContent>
+              </Card>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </main>
   );

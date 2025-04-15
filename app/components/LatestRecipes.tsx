@@ -5,6 +5,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock, Calendar, ArrowRight } from "lucide-react";
+import { getApiUrl } from '@/services/api.service';
 
 type Recipe = {
   id: number;
@@ -16,10 +17,7 @@ type Recipe = {
 
 const fetchRecipes = async (): Promise<Recipe[]> => {
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_API_VERCEL_URL ||
-      process.env.NEXT_PUBLIC_APP_URL ||
-      "http://localhost:3000";
+    const baseUrl = getApiUrl();
     console.log('URL de récupération des recettes :', `${baseUrl}/api/recipes`);
     
     const res = await fetch(`${baseUrl}/api/recipes`, { 

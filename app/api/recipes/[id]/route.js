@@ -20,7 +20,7 @@ export async function GET(req, { params }) {
     }
 
     console.log(`Recipe found:`, recipe);
-    return Response.json(recipe);
+    return Response.json(recipe); // Les nouveaux champs seront inclus ici
   } catch (error) {
     console.error(`Error fetching recipe: ${error.message}`);
     return Response.json(
@@ -55,6 +55,7 @@ export async function PUT(req, { params }) {
       );
     }
 
+    // Mise à jour de la recette avec les nouveaux champs
     const updatedRecipe = await prisma.recipe.update({
       where: { id: String(id) },
       data: {
@@ -62,10 +63,13 @@ export async function PUT(req, { params }) {
         excerpt: data.excerpt,
         category: data.category,
         content: data.content,
-        ingredients: JSON.stringify(data.ingredients),
-        instructions: JSON.stringify(data.instructions),
+        ingredients: data.ingredients,
+        instructions: data.instructions,
         calories: data.calories,
         diet: data.diet,
+        prepTime: data.prepTime, // Nouveau champ
+        servings: data.servings, // Nouveau champ
+        difficulty: data.difficulty, // Nouveau champ
       },
     });
 

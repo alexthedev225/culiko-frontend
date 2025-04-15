@@ -15,9 +15,12 @@ export async function POST(req) {
     const content = formData.get("content");
     const calories = parseInt(formData.get("calories")) || null;
     const diet = formData.get("diet");
-    const ingredients = JSON.parse(formData.get("ingredients"));
-    const instructions = JSON.parse(formData.get("instructions"));
+    const ingredients = formData.get("ingredients"); // Déjà un tableau
+    const instructions = formData.get("instructions"); // Déjà un tableau
     const file = formData.get("imagePath");
+    const prepTime = parseInt(formData.get("prepTime")) || 0;
+    const servings = parseInt(formData.get("servings")) || 1;
+    const difficulty = formData.get("difficulty") || "facile";
 
     let imagePath = null;
 
@@ -36,8 +39,11 @@ export async function POST(req) {
         diet,
         calories, // Maintenant envoyé comme Int
         imagePath,
-        ingredients: JSON.stringify(ingredients),
-        instructions: JSON.stringify(instructions),
+        ingredients, // Stocké directement comme tableau
+        instructions, // Stocké directement comme tableau
+        prepTime,
+        servings,
+        difficulty,
       },
     });
 
@@ -142,10 +148,9 @@ export async function PUT(req) {
     const diet = formData.get("diet");
     const content = formData.get("content") || recipe.content;
     const ingredients =
-      JSON.parse(formData.get("ingredients")) || JSON.parse(recipe.ingredients);
+      formData.get("ingredients") || JSON.parse(recipe.ingredients); // Déjà un tableau
     const instructions =
-      JSON.parse(formData.get("instructions")) ||
-      JSON.parse(recipe.instructions);
+      formData.get("instructions") || JSON.parse(recipe.instructions); // Déjà un tableau
     const file = formData.get("imagePath");
 
     let imagePath = recipe.imagePath;
@@ -166,8 +171,8 @@ export async function PUT(req) {
         imagePath,
         calories, // Maintenant envoyé comme Int
         diet,
-        ingredients: JSON.stringify(ingredients),
-        instructions: JSON.stringify(instructions),
+        ingredients, // Stocké directement comme tableau
+        instructions, // Stocké directement comme tableau
       },
     });
 
